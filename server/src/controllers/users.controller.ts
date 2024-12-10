@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { asyncHanlder } from "../utils/async-handler";
+import { asyncHanlder } from "../utils/AsyncHandler";
 import { UserModel } from "../models/user.model";
 import { CustomError } from "../errors/CustomError";
 import { PasswordUtils } from "../utils/PasswordUtils";
