@@ -1,19 +1,17 @@
 import express, { Request, Response } from "express";
 import { errorHandler } from "./middlewares/error-handler.middleware";
+import { userRouter } from "./routes/users.routes";
 
 const app = express();
-const port = 3000;
+app.use(express.json());
 
 // Route handler with explicit types for req and res
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express!");
 });
 
-app.use(errorHandler);
+app.use("/auth", userRouter);
 
-// // Start the server
-// app.listen(port, () => {
-//   console.log(`Server is running at http://localhost:${port}`);
-// });
+app.use(errorHandler);
 
 export { app };
