@@ -23,6 +23,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../utils/CustomError";
+import { ZodError } from "zod";
 
 export const errorHandler = (
   err: Error,
@@ -30,9 +31,12 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof CustomError) {
+  console.error(err);
+  if (err instanceof ZodError) {
+    res.status(400).json({ errors: err.errors });
+  } else if (err instanceof CustomError) {
     res.status(err.statusCode).json({
-      erros: [
+      errors: [
         {
           success: false,
           message: err.message,
@@ -40,8 +44,9 @@ export const errorHandler = (
       ],
     });
     return;
+  } else {
+    res
+      .status(500)
+      .json({ errors: [{ status: 500, message: "Something went wrong" }] });
   }
-  res
-    .status(500)
-    .json({ errors: [{ status: 500, message: "Something went wrong" }] });
 };
