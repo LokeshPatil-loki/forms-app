@@ -12,7 +12,7 @@ export class JwtService {
 
   static verifyToken(token: string) {
     try {
-      return jwt.verify(token, appConfig.JWT_SECRET!) as UserPayload;
+      return jwt.verify(token, appConfig.JWT_SECRET!);
     } catch (error) {
       throw new UnauthorizedError("Invalid JWT Token");
     }
