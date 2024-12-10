@@ -22,7 +22,7 @@
 // };
 
 import { NextFunction, Request, Response } from "express";
-import { CustomError } from "../utils/CustomError";
+import { CustomError } from "../errors/CustomError";
 import { ZodError } from "zod";
 
 export const errorHandler = (
