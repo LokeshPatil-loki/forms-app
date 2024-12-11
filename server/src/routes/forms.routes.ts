@@ -7,7 +7,7 @@ import {
   getMyForms,
   publishForm,
   updateForm,
-} from "../controllers/forms.controller";
+} from "../controllers/form.controller";
 import { RequestValidation } from "../middlewares/request-validation.middleware";
 import { CreateFormValidationSchema } from "../validation/form/create-form.validation";
 import { DeleteFormValidationSchema } from "../validation/form/delete-form.validation";

@@ -4,7 +4,7 @@ import { SignUpValidationSchema } from "../validation/user/sign-up.validation";
 import {
   loginController,
   signUpController,
-} from "../controllers/users.controller";
+} from "../controllers/user.controller";
 import { LoginValidationSchema } from "../validation/user/login.validation";
 
 const userRouter = Router();
