@@ -9,6 +9,7 @@ export const ResponseSchema = new mongoose.Schema({
   respondent: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   responses: [
     {
@@ -25,11 +26,6 @@ export const ResponseSchema = new mongoose.Schema({
   submittedAt: {
     type: Date,
     default: Date.now,
-  },
-  // IP and other metadata for tracking
-  metadata: {
-    ipAddress: String,
-    userAgent: String,
   },
 });
 
