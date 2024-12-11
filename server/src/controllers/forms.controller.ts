@@ -8,6 +8,7 @@ import { updateFormProvider } from "../providers/form/update-form.provider";
 import { UserPayload } from "../types/user-payload";
 import { asyncHanlder } from "../utils/AsyncHandler";
 import { Request, Response } from "express";
+import { getMyFormsProvider } from "../providers/form/get-my-froms.provider";
 
 export const createForm = asyncHanlder(async (req: Request, res: Response) => {
   const { title, description, headerImageUrl } = req.body;
@@ -54,4 +55,9 @@ export const getForm = asyncHanlder(async (req: Request, res: Response) => {
     req.user as UserPayload
   );
   return res.status(200).json(form);
+});
+
+export const getMyForms = asyncHanlder(async (req: Request, res: Response) => {
+  const forms = await getMyFormsProvider(req.user as UserPayload);
+  return res.status(200).json(forms);
 });

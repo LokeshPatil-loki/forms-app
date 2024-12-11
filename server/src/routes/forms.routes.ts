@@ -4,6 +4,7 @@ import {
   createForm,
   deleteForm,
   getForm,
+  getMyForms,
   publishForm,
   updateForm,
 } from "../controllers/forms.controller";
@@ -22,6 +23,8 @@ formsRouter.post(
   RequestValidation(CreateFormValidationSchema),
   createForm
 );
+
+formsRouter.get("/", requireAuth, getMyForms);
 
 formsRouter.get(
   "/:formId",
