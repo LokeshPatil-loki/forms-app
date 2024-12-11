@@ -1,6 +1,7 @@
 import { BadRequestError } from "../errors/BadRequestError";
 import { createFormProvider } from "../providers/form/create-form.provider";
 import { deleteFormProvider } from "../providers/form/delete-form.provider";
+import { publishFormProvider } from "../providers/form/publish-form.provider";
 import { updateFormProvider } from "../providers/form/update-form.provider";
 import { UserPayload } from "../types/user-payload";
 import { asyncHanlder } from "../utils/AsyncHandler";
@@ -33,4 +34,14 @@ export const updateForm = asyncHanlder(async (req: Request, res: Response) => {
     throw new BadRequestError("Unable to update form");
   }
   return res.status(200).json({ message: "form updated successfully" });
+});
+
+export const publishForm = asyncHanlder(async (req: Request, res: Response) => {
+  const shareableLink = await publishFormProvider(
+    req.params.formId,
+    req.user as UserPayload
+  );
+  return res
+    .status(200)
+    .json({ message: "form published successfully", shareableLink });
 });
