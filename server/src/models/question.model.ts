@@ -1,6 +1,12 @@
+import { required } from "joi";
 import mongoose from "mongoose";
 
 export const QuestionSchema = new mongoose.Schema({
+  form: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Form",
+    required: true,
+  },
   type: {
     type: String,
     enum: ["Text", "Grid", "CheckBox"],
