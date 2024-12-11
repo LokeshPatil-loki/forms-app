@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { CreateQuestionSchema } from "./create-question.validation";
 import { QuestionBaseSchema } from "./question-base.validation";
 
 export const UpdateQuestionSchema = z.object({
