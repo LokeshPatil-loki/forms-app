@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UpdateFormValidationSchema } from "../../validation/forms/update-form.validation";
+import { UpdateFormValidationSchema } from "../../validation/form/update-form.validation";
 import { UserPayload } from "../../types/user-payload";
 import { FormModel } from "../../models/form.model";
 import { NotFoundError } from "../../errors/NotFoundError";

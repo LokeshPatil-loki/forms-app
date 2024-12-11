@@ -9,11 +9,11 @@ import {
   updateForm,
 } from "../controllers/forms.controller";
 import { RequestValidation } from "../middlewares/request-validation.middleware";
-import { CreateFormValidationSchema } from "../validation/forms/create-form.validation";
-import { DeleteFormValidationSchema } from "../validation/forms/delete-form.validation";
-import { UpdateFormValidationSchema } from "../validation/forms/update-form.validation";
-import { PublishFormValidationSchema } from "../validation/forms/publish-form.validation";
-import { GetFormValidationSchema } from "../validation/forms/get-form.validation";
+import { CreateFormValidationSchema } from "../validation/form/create-form.validation";
+import { DeleteFormValidationSchema } from "../validation/form/delete-form.validation";
+import { UpdateFormValidationSchema } from "../validation/form/update-form.validation";
+import { PublishFormValidationSchema } from "../validation/form/publish-form.validation";
+import { GetFormValidationSchema } from "../validation/form/get-form.validation";
 
 const formsRouter = Router();
 
