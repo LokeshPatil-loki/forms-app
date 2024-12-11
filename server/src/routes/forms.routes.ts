@@ -3,6 +3,7 @@ import { requireAuth } from "../middlewares/require-auth.middleware";
 import {
   createForm,
   deleteForm,
+  getForm,
   publishForm,
   updateForm,
 } from "../controllers/forms.controller";
@@ -11,6 +12,7 @@ import { CreateFormValidationSchema } from "../validation/forms/create-form.vali
 import { DeleteFormValidationSchema } from "../validation/forms/delete-form.validation";
 import { UpdateFormValidationSchema } from "../validation/forms/update-form.validation";
 import { PublishFormValidationSchema } from "../validation/forms/publish-form.validation";
+import { GetFormValidationSchema } from "../validation/forms/get-form.validation";
 
 const formsRouter = Router();
 
@@ -19,6 +21,13 @@ formsRouter.post(
   requireAuth,
   RequestValidation(CreateFormValidationSchema),
   createForm
+);
+
+formsRouter.get(
+  "/:formId",
+  requireAuth,
+  RequestValidation(GetFormValidationSchema),
+  getForm
 );
 
 formsRouter.delete(
