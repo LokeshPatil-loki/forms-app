@@ -3,7 +3,10 @@ import { QuestionBaseSchema } from "./question-base.validation";
 
 export const CreateQuestionSchema = z.object({
   body: QuestionBaseSchema.shape.body.refine(
-    (data) => data.gridConfig || data.checkboxConfig || data.validation,
+    (data) =>
+      (data.type === "Text" && data.validation) ||
+      (data.type === "Grid" && data.gridConfig) ||
+      (data.type === "CheckBox" && data.checkboxConfig),
     {
       message:
         "At least one of gridConfig, checkboxConfig, or validation must be provided.",

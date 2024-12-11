@@ -12,7 +12,12 @@ const FormSchema = new mongoose.Schema({
   headerImageUrl: {
     type: String,
   },
-  questions: [QuestionSchema],
+  questions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Question",
+    },
+  ],
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
