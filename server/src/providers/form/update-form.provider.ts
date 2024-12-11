@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { UpdateFormValidationSchema } from "../../validation/form/update-form.validation";
+import { UpdateFormSchema } from "../../validation/form/update-form.validation";
 import { UserPayload } from "../../types/user-payload";
 import { FormModel } from "../../models/form.model";
 import { NotFoundError } from "../../errors/NotFoundError";
 import { ForbiddenError } from "../../errors/ForbiddenError";
-type UpdateFormBody = z.infer<typeof UpdateFormValidationSchema.shape.body>;
+type UpdateFormBody = z.infer<typeof UpdateFormSchema.shape.body>;
 export const updateFormProvider = async (
   body: UpdateFormBody,
   formId: string,

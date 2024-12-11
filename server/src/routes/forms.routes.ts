@@ -9,18 +9,18 @@ import {
   updateForm,
 } from "../controllers/form.controller";
 import { RequestValidation } from "../middlewares/request-validation.middleware";
-import { CreateFormValidationSchema } from "../validation/form/create-form.validation";
-import { DeleteFormValidationSchema } from "../validation/form/delete-form.validation";
-import { UpdateFormValidationSchema } from "../validation/form/update-form.validation";
-import { PublishFormValidationSchema } from "../validation/form/publish-form.validation";
-import { GetFormValidationSchema } from "../validation/form/get-form.validation";
+import { CreateFormSchema } from "../validation/form/create-form.validation";
+import { DeleteFormSchema } from "../validation/form/delete-form.validation";
+import { UpdateFormSchema } from "../validation/form/update-form.validation";
+import { PublishFormSchema } from "../validation/form/publish-form.validation";
+import { GetFormSchema } from "../validation/form/get-form.validation";
 
 const formsRouter = Router();
 
 formsRouter.post(
   "/",
   requireAuth,
-  RequestValidation(CreateFormValidationSchema),
+  RequestValidation(CreateFormSchema),
   createForm
 );
 
@@ -29,28 +29,28 @@ formsRouter.get("/", requireAuth, getMyForms);
 formsRouter.get(
   "/:formId",
   requireAuth,
-  RequestValidation(GetFormValidationSchema),
+  RequestValidation(GetFormSchema),
   getForm
 );
 
 formsRouter.delete(
   "/:formId",
   requireAuth,
-  RequestValidation(DeleteFormValidationSchema),
+  RequestValidation(DeleteFormSchema),
   deleteForm
 );
 
 formsRouter.patch(
   "/:formId",
   requireAuth,
-  RequestValidation(UpdateFormValidationSchema),
+  RequestValidation(UpdateFormSchema),
   updateForm
 );
 
 formsRouter.patch(
   "/:formId/publish",
   requireAuth,
-  RequestValidation(PublishFormValidationSchema),
+  RequestValidation(PublishFormSchema),
   publishForm
 );
 

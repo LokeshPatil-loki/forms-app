@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const SignUpValidationSchema = z.object({
+export const SignUpSchema = z.object({
   body: z.object({
     firstName: z
       .string({ required_error: "firstName is required" })

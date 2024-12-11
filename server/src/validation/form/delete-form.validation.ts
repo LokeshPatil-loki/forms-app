@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const DeleteFormValidationSchema = z.object({
+export const DeleteFormSchema = z.object({
   params: z.object({
     formId: z
       .string({

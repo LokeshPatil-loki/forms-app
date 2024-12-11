@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const GetFormValidationSchema = z.object({
+export const GetFormSchema = z.object({
   params: z.object({
     formId: z
       .string({ required_error: "formId param is required" })

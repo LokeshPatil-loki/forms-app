@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { CreateFormValidationSchema } from "./create-form.validation";
+import { CreateFormSchema } from "./create-form.validation";
 
-export const UpdateFormValidationSchema = z.object({
-  body: CreateFormValidationSchema.shape.body.partial().strict(),
+export const UpdateFormSchema = z.object({
+  body: CreateFormSchema.shape.body.partial().strict(),
   params: z.object({
     formId: z
       .string({

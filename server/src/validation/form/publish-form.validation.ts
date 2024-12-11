@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const PublishFormValidationSchema = z.object({
+export const PublishFormSchema = z.object({
   params: z.object({
     formId: z
       .string({ required_error: "formId param is required" })

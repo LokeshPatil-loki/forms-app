@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreateFormValidationSchema = z.object({
+export const CreateFormSchema = z.object({
   body: z
     .object({
       title: z.string({ required_error: "Title is required" }),
