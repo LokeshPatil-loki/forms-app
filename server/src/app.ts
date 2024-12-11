@@ -3,11 +3,12 @@ import { errorHandler } from "./middlewares/error-handler.middleware";
 import { userRouter } from "./routes/users.routes";
 import { requireAuth } from "./middlewares/require-auth.middleware";
 import { JwtPayload } from "jsonwebtoken";
+import { UserPayload } from "./types/user-payload";
 
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload | string; // You can replace `any` with the actual type of the user payload
+      user?: JwtPayload | UserPayload | string; // You can replace `any` with the actual type of the user payload
     }
   }
 }
@@ -20,7 +21,7 @@ app.get("/", requireAuth, (req: Request, res: Response) => {
   res.json(req.user);
 });
 
-app.use("/auth", userRouter);
+app.use("/api/auth", userRouter);
 
 app.use(errorHandler);
 

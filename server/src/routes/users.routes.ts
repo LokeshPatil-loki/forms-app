@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { RequestValidation } from "../middlewares/request-validation.middleware";
-import { SignUpValidationSchema } from "../validation/sign-up.validation";
+import { SignUpValidationSchema } from "../validation/users/sign-up.validation";
 import {
   loginController,
   signUpController,
 } from "../controllers/users.controller";
-import { LoginValidationSchema } from "../validation/login.validation";
+import { LoginValidationSchema } from "../validation/users/login.validation";
 
 const userRouter = Router();
 
