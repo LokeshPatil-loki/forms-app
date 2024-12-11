@@ -23,6 +23,7 @@ app.get("/", requireAuth, (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", userRouter);
+
 app.use("/api/form", formsRouter);
 
 app.use(errorHandler);
