@@ -4,6 +4,7 @@ import { userRouter } from "./routes/users.routes";
 import { requireAuth } from "./middlewares/require-auth.middleware";
 import { JwtPayload } from "jsonwebtoken";
 import { UserPayload } from "./types/user-payload";
+import { formsRouter } from "./routes/forms.routes";
 
 declare global {
   namespace Express {
@@ -22,6 +23,7 @@ app.get("/", requireAuth, (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", userRouter);
+app.use("/api/form", formsRouter);
 
 app.use(errorHandler);
 

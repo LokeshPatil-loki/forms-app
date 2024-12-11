@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 export const QuestionSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -26,6 +27,7 @@ export const QuestionSchema = new mongoose.Schema({
   },
   checkboxConfig: {
     options: [String],
+    selectMultiple: Boolean,
   },
   validation: {
     minLength: Number,
