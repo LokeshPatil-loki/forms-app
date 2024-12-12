@@ -31,12 +31,13 @@ export const updateQuestionProvider = async (
     );
   }
 
-  const isUpdated = await QuestionModel.updateOne(
+  const updatedQuestion = await QuestionModel.findByIdAndUpdate(
     { _id: question._id },
-    { ...body }
+    { ...body },
+    { new: true }
   );
-  if (!isUpdated.acknowledged) {
+  if (!updatedQuestion) {
     throw new BadRequestError("Unable to update question");
   }
-  return true;
+  return updatedQuestion;
 };
