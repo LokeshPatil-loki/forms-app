@@ -1,5 +1,4 @@
-import { required } from "joi";
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType, ObjectId } from "mongoose";
 
 export const QuestionSchema = new mongoose.Schema({
   form: {
@@ -41,5 +40,10 @@ export const QuestionSchema = new mongoose.Schema({
     pattern: String,
   },
 });
+
+// export type Question = InferSchemaType<typeof QuestionSchema>;
+export interface Question extends InferSchemaType<typeof QuestionSchema> {
+  _id: mongoose.Schema.Types.ObjectId | string;
+}
 
 export const QuestionModel = mongoose.model("Question", QuestionSchema);

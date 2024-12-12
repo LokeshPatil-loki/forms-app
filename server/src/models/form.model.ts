@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import { QuestionSchema } from "./question.model";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const FormSchema = new mongoose.Schema({
   title: {
@@ -39,5 +38,7 @@ const FormSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+export type Form = InferSchemaType<typeof FormSchema>;
 
 export const FormModel = mongoose.model("Form", FormSchema);
