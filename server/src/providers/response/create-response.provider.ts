@@ -15,7 +15,7 @@ import { BadRequestError } from "../../errors/BadRequestError";
 import { ResponseModel } from "../../models/response.model";
 import { error } from "console";
 import { ObjectId } from "mongodb";
-
+import { ErrorMessages } from "../../utils/ErrorMessages";
 type Body = z.infer<typeof CreateResponseSchema.shape.body>;
 interface PopulatedForm extends Omit<Form, "questions"> {
   questions: Question[];
@@ -29,10 +29,10 @@ export const createResponseProvider = async (
     questions: Question[];
   }>("questions");
   if (!form) {
-    throw new NotFoundError("Form not found");
+    throw new NotFoundError(ErrorMessages.FORM_NOT_FOUND);
   }
   if (!form.isPublished) {
-    throw new ForbiddenError("Form is not open for responses");
+    throw new ForbiddenError(ErrorMessages.FORM_PERMISSION_DENIED);
   }
   const validationErrors = validateFormResponses(form, body.responses);
   if (validationErrors.length > 0) {
@@ -45,7 +45,7 @@ export const createResponseProvider = async (
   });
 
   if (!formResponse) {
-    throw new BadRequestError("Error submitting form response");
+    throw new BadRequestError(ErrorMessages.RESPONSE_SUBMIT_FAILED);
   }
   return formResponse._id;
 };
@@ -71,7 +71,7 @@ function validateFormResponses(
     });
 
     if (!isQuestion(question)) {
-      throw new InternalServerError("Unable to populate questions");
+      throw new InternalServerError(ErrorMessages.POPULATE_QUESTIONS_FAILED);
     }
 
     if (response) {

@@ -3,12 +3,12 @@ import { GetQuestionSchema } from "../../validation/question/get-question.valida
 import { UserPayload } from "../../types/user-payload";
 import { QuestionModel } from "../../models/question.model";
 import { NotFoundError } from "../../errors/NotFoundError";
-
+import { ErrorMessages } from "../../utils/ErrorMessages";
 type Params = z.infer<typeof GetQuestionSchema.shape.params>;
 export const getQuestionProvider = async (questionId: string) => {
   const question = await QuestionModel.findById(questionId);
   if (!question) {
-    throw new NotFoundError("Question not found");
+    throw new NotFoundError(ErrorMessages.QUESTION_NOT_FOUND);
   }
   return question;
 };

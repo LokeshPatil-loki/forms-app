@@ -9,7 +9,7 @@ import { ForbiddenError } from "../../errors/ForbiddenError";
 
 type Body = z.infer<typeof UpdateQuestionSchema.shape.body>;
 type Params = z.infer<typeof UpdateQuestionSchema.shape.params>;
-
+import { ErrorMessages } from "../../utils/ErrorMessages";
 export const updateQuestionProvider = async (
   body: Body,
   questionId: string,
@@ -17,7 +17,7 @@ export const updateQuestionProvider = async (
 ) => {
   const question = await QuestionModel.findById(questionId);
   if (!question) {
-    throw new NotFoundError("Question does not exist");
+    throw new NotFoundError(ErrorMessages.QUESTION_NOT_FOUND);
   }
 
   const form = await getFormProvider(
@@ -26,9 +26,7 @@ export const updateQuestionProvider = async (
   );
 
   if (!form.createdBy?.equals(loggedInUser._id)) {
-    throw new ForbiddenError(
-      "You don't have permission to update this question"
-    );
+    throw new ForbiddenError(ErrorMessages.FORM_PERMISSION_DENIED);
   }
 
   const updatedQuestion = await QuestionModel.findByIdAndUpdate(
@@ -37,7 +35,7 @@ export const updateQuestionProvider = async (
     { new: true }
   );
   if (!updatedQuestion) {
-    throw new BadRequestError("Unable to update question");
+    throw new BadRequestError(ErrorMessages.QUESTION_UPDATE_FAILED);
   }
   return updatedQuestion;
 };

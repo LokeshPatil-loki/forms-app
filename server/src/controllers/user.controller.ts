@@ -8,10 +8,14 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { JwtService } from "../utils/JwtService";
 import { createApiResponse } from "../utils/ApiResponse";
-
+import { ErrorMessages } from "../utils/ErrorMessages";
 export const signUpController = asyncHanlder(
   async (req: Request, res: Response) => {
     const { firstName, lastName, email, password } = req.body;
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      throw new BadRequestError(ErrorMessages.EMAIL_EXISTS);
+    }
     const hashedPassword = await PasswordUtils.hashPassword(password);
     const user = await UserModel.create({
       firstName,
@@ -20,7 +24,7 @@ export const signUpController = asyncHanlder(
       password: hashedPassword,
     });
     if (!user) {
-      throw new BadRequestError("Cannot create user");
+      throw new BadRequestError(ErrorMessages.USER_CREATE_FAILED);
     }
     const data = await UserModel.findById(user._id, { password: 0 });
     return res
@@ -36,7 +40,7 @@ export const loginController = asyncHanlder(
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      throw new NotFoundError(`User with ${email} not found! `);
+      throw new NotFoundError(ErrorMessages.USER_NOT_FOUND);
     }
 
     const isMatch = await PasswordUtils.comparePassword(
@@ -45,7 +49,7 @@ export const loginController = asyncHanlder(
     );
 
     if (!isMatch) {
-      throw new UnauthorizedError("Invalid email / password");
+      throw new UnauthorizedError(ErrorMessages.INVALID_CREDENTIALS);
     }
 
     const token = JwtService.generateToken({

@@ -2,7 +2,7 @@ import { hash, hashSync } from "bcrypt";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { FormModel } from "../../models/form.model";
 import { UserPayload } from "../../types/user-payload";
-
+import { ErrorMessages } from "../../utils/ErrorMessages";
 interface CreateFormProviderBody {
   title: string;
   description?: string;
@@ -19,7 +19,7 @@ export const createFormProvider = async (
     shareableLink,
   });
   if (!form) {
-    throw new BadRequestError("Unable to create form");
+    throw new BadRequestError(ErrorMessages.FORM_CREATE_FAILED);
   }
 
   console.log(form);
