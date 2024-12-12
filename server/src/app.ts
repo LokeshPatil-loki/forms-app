@@ -7,6 +7,7 @@ import { UserPayload } from "./types/user-payload";
 import { formsRouter } from "./routes/forms.routes";
 import { questionRouter } from "./routes/question.routes";
 import { responseRouter } from "./routes/response.routes";
+import cors from "cors";
 
 declare global {
   namespace Express {
@@ -17,6 +18,7 @@ declare global {
 }
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 // Route handler with explicit types for req and res
