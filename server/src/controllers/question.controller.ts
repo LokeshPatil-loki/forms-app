@@ -5,6 +5,7 @@ import { UserPayload } from "../types/user-payload";
 import { updateQuestionProvider } from "../providers/question/update-question.provider";
 import { getQuestionProvider } from "../providers/question/get-question.provider";
 import { deleteQuestionProvider } from "../providers/question/delete-question.provider";
+import { createApiResponse } from "../utils/ApiResponse";
 
 export const createQuestion = asyncHanlder(
   async (req: Request, res: Response) => {
@@ -16,24 +17,34 @@ export const createQuestion = asyncHanlder(
     console.log(question);
     return res
       .status(201)
-      .json({ question, message: "added question to form" });
+      .json(
+        createApiResponse(true, "Question added successfully", { question })
+      );
   }
 );
 
 export const updateQuestion = asyncHanlder(
   async (req: Request, res: Response) => {
-    await updateQuestionProvider(
+    const question = await updateQuestionProvider(
       req.body,
       req.params.questionId,
       req.user as UserPayload
     );
-    return res.status(200).json({ message: "updated question" });
+    return res
+      .status(200)
+      .json(
+        createApiResponse(true, "Question updated successfully", { question })
+      );
   }
 );
 
 export const getQuestion = asyncHanlder(async (req: Request, res: Response) => {
   const question = await getQuestionProvider(req.params.questionId);
-  return res.status(200).json({ question });
+  return res
+    .status(200)
+    .json(
+      createApiResponse(true, "Question retrieved successfully", { question })
+    );
 });
 
 export const deleteQuestion = asyncHanlder(
@@ -42,6 +53,10 @@ export const deleteQuestion = asyncHanlder(
       req.params.questionId,
       req.user as UserPayload
     );
-    return res.status(200).json({ message: `deleted question ${deletedId}` });
+    return res
+      .status(200)
+      .json(
+        createApiResponse(true, "Question deleted successfully", { deletedId })
+      );
   }
 );

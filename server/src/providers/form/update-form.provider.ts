@@ -4,6 +4,7 @@ import { UserPayload } from "../../types/user-payload";
 import { FormModel } from "../../models/form.model";
 import { NotFoundError } from "../../errors/NotFoundError";
 import { ForbiddenError } from "../../errors/ForbiddenError";
+import { BadRequestError } from "../../errors/BadRequestError";
 type UpdateFormBody = z.infer<typeof UpdateFormSchema.shape.body>;
 export const updateFormProvider = async (
   body: UpdateFormBody,
@@ -18,10 +19,13 @@ export const updateFormProvider = async (
     throw new ForbiddenError(`You are not allowd to update this form`);
   }
   // return title;
-  const updatedForm = await FormModel.updateOne(
+  const updatedForm = await FormModel.findByIdAndUpdate(
     { _id: form._id },
-    { ...body, updatedAt: new Date() }
+    { ...body, updatedAt: new Date() },
+    { new: true }
   );
-
-  return updatedForm.acknowledged;
+  if (!updatedForm) {
+    throw new BadRequestError("Unable to update form");
+  }
+  return updatedForm;
 };

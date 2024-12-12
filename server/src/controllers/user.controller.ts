@@ -7,6 +7,7 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { JwtService } from "../utils/JwtService";
+import { createApiResponse } from "../utils/ApiResponse";
 
 export const signUpController = asyncHanlder(
   async (req: Request, res: Response) => {
@@ -22,7 +23,11 @@ export const signUpController = asyncHanlder(
       throw new BadRequestError("Cannot create user");
     }
     const data = await UserModel.findById(user._id, { password: 0 });
-    return res.status(201).json({ user: data });
+    return res
+      .status(201)
+      .json(
+        createApiResponse(true, "User registered successfully", { user: data })
+      );
   }
 );
 export const loginController = asyncHanlder(
@@ -50,14 +55,8 @@ export const loginController = asyncHanlder(
       lastName: user.lastName,
     });
 
-    return res.status(200).json({
-      token,
-      user: {
-        _id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      },
-    });
+    return res
+      .status(200)
+      .json(createApiResponse(true, "Login successful", { token, user }));
   }
 );

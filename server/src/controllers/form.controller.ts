@@ -9,6 +9,7 @@ import { UserPayload } from "../types/user-payload";
 import { asyncHanlder } from "../utils/AsyncHandler";
 import { Request, Response } from "express";
 import { getMyFormsProvider } from "../providers/form/get-my-froms.provider";
+import { createApiResponse } from "../utils/ApiResponse";
 
 export const createForm = asyncHanlder(async (req: Request, res: Response) => {
   const { title, description, headerImageUrl } = req.body;
@@ -17,26 +18,31 @@ export const createForm = asyncHanlder(async (req: Request, res: Response) => {
     { title, description, headerImageUrl },
     loggedInUser
   );
-  return res.status(201).json({ form, message: "form created successfully" });
+  return res
+    .status(201)
+    .json(createApiResponse(true, "Form created successfully", { form }));
 });
 
 export const deleteForm = asyncHanlder(async (req: Request, res: Response) => {
   const { formId } = req.params;
   const loggedInUser = req.user as UserPayload;
   const form = await deleteFormProvider(formId, loggedInUser);
-  return res.status(200).send({ message: "form deleted successfully", form });
+  return res
+    .status(200)
+    .json(createApiResponse(true, "Form deleted successfully", { form }));
 });
 
 export const updateForm = asyncHanlder(async (req: Request, res: Response) => {
-  const isUpdated = await updateFormProvider(
+  const updatedForm = await updateFormProvider(
     req.body,
     req.params.formId,
     req.user as UserPayload
   );
-  if (!isUpdated) {
-    throw new BadRequestError("Unable to update form");
-  }
-  return res.status(200).json({ message: "form updated successfully" });
+  return res
+    .status(200)
+    .json(
+      createApiResponse(true, "Form updated successfully", { updatedForm })
+    );
 });
 
 export const publishForm = asyncHanlder(async (req: Request, res: Response) => {
@@ -46,7 +52,9 @@ export const publishForm = asyncHanlder(async (req: Request, res: Response) => {
   );
   return res
     .status(200)
-    .json({ message: "form published successfully", shareableLink });
+    .json(
+      createApiResponse(true, "Form published successfully", { shareableLink })
+    );
 });
 
 export const getForm = asyncHanlder(async (req: Request, res: Response) => {
@@ -54,10 +62,14 @@ export const getForm = asyncHanlder(async (req: Request, res: Response) => {
     req.params.formId,
     req.user as UserPayload
   );
-  return res.status(200).json(form);
+  return res
+    .status(200)
+    .json(createApiResponse(true, "Form retrieved successfully", { form }));
 });
 
 export const getMyForms = asyncHanlder(async (req: Request, res: Response) => {
   const forms = await getMyFormsProvider(req.user as UserPayload);
-  return res.status(200).json(forms);
+  return res
+    .status(200)
+    .json(createApiResponse(true, "Forms retrieved successfully", { forms }));
 });
