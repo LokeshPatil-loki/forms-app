@@ -7,7 +7,7 @@ export const getFormProvider = async (
   formId: string,
   loggedInUser: UserPayload
 ) => {
-  const form = await FormModel.findById(formId);
+  const form = await FormModel.findById(formId).populate("questions");
   if (!form) {
     throw new NotFoundError("form doest not exist");
   }

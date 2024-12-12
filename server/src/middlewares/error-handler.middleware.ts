@@ -10,8 +10,15 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  console.error(err);
   if (err instanceof ZodError) {
-    res.status(400).json({ errors: err.errors });
+    res.status(400).json({
+      message: "Validation Error",
+      errors: err.errors.map((error) => ({
+        field: error.path.join("."),
+        message: error.message,
+      })),
+    });
   } else if (err instanceof CustomError) {
     res.status(err.statusCode).json({
       errors: [
