@@ -22,8 +22,8 @@ app.use(cors());
 app.use(express.json());
 
 // Route handler with explicit types for req and res
-app.get("/", requireAuth, (req: Request, res: Response) => {
-  res.json(req.user);
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello there!");
 });
 
 app.use("/api/auth", userRouter);
