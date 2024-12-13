@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Primary Colors */
+  --color-primary: #7052f2;
+  --color-on-primary: #ffffff;
+
+  /* Background and Surface */
+  --color-surface-muted: #f8f8fb;
+  --color-input-bg: #ededf2;
+
+  /* Text */
+  --color-text-primary: #011056;
+  --color-text-muted: #7f84a6;
+
+  /* Status Colors */
+  --color-success: #1bb965;
+  --color-error: #b91b27;
+
+  /* Borders */
+  --color-border-muted: #e1e3e3;
+}
