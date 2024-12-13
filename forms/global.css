@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .light {
   /* Primary Colors */
   --color-accent: #7052f2;
@@ -6,7 +10,7 @@
 
   /* Background and Surface */
   --color-fill: #f8f8fb;
-  --color-fill-muted: #ededf2;
+  --color-fill-muted: #a4a4b1;
 
   /* Text */
   --color-text-inverted: #ffffff;

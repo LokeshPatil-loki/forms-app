@@ -34,7 +34,7 @@ export default function SignInScreen() {
   });
 
   return (
-    <View className="justify-center flex-1 px-4">
+    <View className="justify-center flex-1 px-4 bg-text-inverted">
       <Text className="mb-8 text-2xl font-bold text-center">Welcome Back</Text>
 
       {isError && (
