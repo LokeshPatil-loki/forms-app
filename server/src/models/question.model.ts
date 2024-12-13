@@ -41,6 +41,13 @@ export const QuestionSchema = new mongoose.Schema({
   },
 });
 
+QuestionSchema.methods.toJSON = function () {
+  const question = this;
+  const questionObject = question.toObject();
+  questionObject.id = questionObject._id;
+  delete questionObject._id;
+  return questionObject;
+};
 // export type Question = InferSchemaType<typeof QuestionSchema>;
 export interface Question extends InferSchemaType<typeof QuestionSchema> {
   _id: mongoose.Schema.Types.ObjectId | string;

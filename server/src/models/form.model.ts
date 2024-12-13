@@ -39,6 +39,14 @@ const FormSchema = new mongoose.Schema({
   },
 });
 
+FormSchema.methods.toJSON = function () {
+  const form = this;
+  const formObject = form.toObject();
+  formObject.id = formObject._id;
+  delete formObject._id;
+  return formObject;
+};
+
 export type Form = InferSchemaType<typeof FormSchema>;
 
 export const FormModel = mongoose.model("Form", FormSchema);

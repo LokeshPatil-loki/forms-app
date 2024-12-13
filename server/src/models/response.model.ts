@@ -29,4 +29,12 @@ export const ResponseSchema = new mongoose.Schema({
   },
 });
 
+ResponseSchema.methods.toJSON = function () {
+  const response = this;
+  const responseObject = response.toObject();
+  responseObject.id = responseObject._id;
+  delete responseObject._id;
+  return responseObject;
+};
+
 export const ResponseModel = mongoose.model("Response", ResponseSchema);

@@ -53,7 +53,7 @@ Response (201):
   message: "User registered successfully",
   data: {
     user: {
-      _id: string,
+      id: string,
       firstName: string,
       lastName: string,
       email: string,
@@ -85,7 +85,7 @@ Response (200):
   data: {
     token: string,
     user: {
-      _id: string,
+      id: string,
       firstName: string,
       lastName: string,
       email: string,
@@ -120,7 +120,7 @@ Response (201):
   message: "Form created successfully",
   data: {
     form: {
-      _id: string,
+      id: string,
       title: string,
       description?: string,
       headerImageUrl?: string,
@@ -147,7 +147,7 @@ Response (200):
   message: "Forms retrieved successfully",
   data: {
     forms: Array<{
-      _id: string,
+      id: string,
       title: string,
       description?: string,
       headerImageUrl?: string,
@@ -174,7 +174,7 @@ Response (200):
   message: "Form retrieved successfully",
   data: {
     form: {
-      _id: string,
+      id: string,
       title: string,
       description?: string,
       headerImageUrl?: string,
@@ -336,7 +336,7 @@ Response (200):
   message: "Form responses retrieved successfully",
   data: {
     responses: Array<{
-      _id: string,
+      id: string,
       form: string,
       respondent: string,
       responses: Array<{

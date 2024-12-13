@@ -32,6 +32,8 @@ const UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
+  userObject.id = userObject._id;
+  delete userObject._id;
   delete userObject.password;
   return userObject;
 };
