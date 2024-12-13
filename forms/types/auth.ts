@@ -21,3 +21,10 @@ export interface AuthResponse {
 
 export type SignUpData = z.infer<typeof signUpSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
+
+export interface ApiError {
+  errors: Array<{
+    message: string;
+    success: boolean;
+  }>;
+}
