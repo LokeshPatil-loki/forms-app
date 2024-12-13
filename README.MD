@@ -58,6 +58,7 @@ Response (201):
       lastName: string,
       email: string,
       createdAt: string
+      createdForms: []
     }
   }
 }
@@ -87,7 +88,9 @@ Response (200):
       _id: string,
       firstName: string,
       lastName: string,
-      email: string
+      email: string,
+      createdAt: string
+      createdForms: []
     }
   }
 }
