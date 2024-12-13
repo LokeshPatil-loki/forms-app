@@ -1,40 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  /* Primary Colors */
-  --color-primary: #7052f2;
-  --color-on-primary: #ffffff;
-
-  /* Background and Surface */
-  --color-surface-muted: #f8f8fb;
-  --color-input-bg: #ededf2;
-
-  /* Text */
-  --color-text-primary: #011056;
-  --color-text-muted: #7f84a6;
-
-  /* Status Colors */
-  --color-success: #1bb965;
-  --color-error: #b91b27;
-
-  /* Borders */
-  --color-border-muted: #e1e3e3;
-}
-
 .light {
   /* Primary Colors */
-  --color-primary: #7052f2;
-  --color-on-primary: #ffffff;
+  --color-accent: #7052f2;
+  --color-accent-hover: #5f43da;
+  --color-muted: #ededf2;
 
   /* Background and Surface */
-  --color-surface-muted: #f8f8fb;
-  --color-input-bg: #ededf2;
+  --color-fill: #f8f8fb;
+  --color-fill-muted: #ededf2;
 
   /* Text */
-  --color-text-primary: #011056;
+  --color-text-inverted: #ffffff;
+  --color-text-base: #011056;
   --color-text-muted: #7f84a6;
+
+  --color-button-accent: #7052f2;
+  --color-button-accent-hover: #5f43da;
+  --color-button-muted: #ededf2;
 
   /* Status Colors */
   --color-success: #1bb965;
@@ -46,21 +27,54 @@
 
 .dark {
   /* Primary Colors */
-  --color-primary: #8b80ff; /* Slightly lighter for dark backgrounds */
-  --color-on-primary: #1a1a1a; /* Dark text on primary buttons */
+  --color-accent: #8466f2;
+  --color-accent-hover: #9579ff;
+  --color-muted: #2a2d3d;
 
   /* Background and Surface */
-  --color-surface-muted: #1e1e2a; /* Darker surface for backgrounds */
-  --color-input-bg: #2a2a38; /* Input background matching dark theme */
+  --color-fill: #151725;
+  --color-fill-muted: #1e2235;
 
   /* Text */
-  --color-text-primary: #e6e6f0; /* Light text for high contrast */
-  --color-text-muted: #a3a3c2; /* Muted text for placeholders */
+  --color-text-inverted: #151725;
+  --color-text-base: #ffffff;
+  --color-text-muted: #9ca3af;
+
+  --color-button-accent: #8466f2;
+  --color-button-accent-hover: #9579ff;
+  --color-button-muted: #2a2d3d;
 
   /* Status Colors */
-  --color-success: #23d18b; /* Bright green for success indicators */
-  --color-error: #f44747; /* Bright red for errors */
+  --color-success: #22c870;
+  --color-error: #dc2f3a;
 
   /* Borders */
-  --color-border-muted: #3a3a4a; /* Subtle muted border color */
+  --color-border-muted: #2a2d3d;
+}
+
+.forest {
+  /* Primary Colors */
+  --color-accent: #2e7d32;
+  --color-accent-hover: #388e3c;
+  --color-muted: #e8f5e9;
+
+  /* Background and Surface */
+  --color-fill: #f1f8e9;
+  --color-fill-muted: #e8f5e9;
+
+  /* Text */
+  --color-text-inverted: #ffffff;
+  --color-text-base: #1b5e20;
+  --color-text-muted: #558b2f;
+
+  --color-button-accent: #2e7d32;
+  --color-button-accent-hover: #388e3c;
+  --color-button-muted: #e8f5e9;
+
+  /* Status Colors */
+  --color-success: #43a047;
+  --color-error: #c62828;
+
+  /* Borders */
+  --color-border-muted: #c8e6c9;
 }
