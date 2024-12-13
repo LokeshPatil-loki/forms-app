@@ -4,34 +4,51 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {
-      colors: {
+    colors: {
+      // Primary Colors
+      accent: {
+        DEFAULT: "var(--color-accent)",
+        hover: "var(--color-accent-hover)",
+      },
+      muted: "var(--color-muted)",
+
+      // Background and Surface
+      fill: {
+        DEFAULT: "var(--color-fill)",
+        muted: "var(--color-fill-muted)",
+      },
+
+      // Text Colors
+      text: {
+        base: "var(--color-text-base)",
+        muted: "var(--color-text-muted)",
+        inverted: "var(--color-text-inverted)",
+      },
+
+      // Button Colors
+      button: {
         accent: {
-          DEFAULT: "#7052f2",
-          hover: "#5f43da",
+          DEFAULT: "var(--color-button-accent)",
+          hover: "var(--color-button-accent-hover)",
         },
-        muted: "#ededf2",
-        fill: {
-          DEFAULT: "#f8f8fb",
-          muted: "#ededf2",
-        },
-        text: {
-          inverted: "#ffffff",
-          base: "#011056",
-          muted: "#7f84a6",
-        },
-        button: {
-          accent: "#7052f2",
-          "accent-hover": "#5f43da",
-          muted: "#ededf2",
-        },
-        status: {
-          success: "#1bb965",
-          error: "#b91b27",
-        },
-        border: {
-          muted: "#e1e3e3",
-        },
+        muted: "var(--color-button-muted)",
+      },
+
+      // Status Colors
+      success: "var(--color-success)",
+      error: "var(--color-error)",
+
+      // Borders
+      border: {
+        muted: "var(--color-border-muted)",
+      },
+    },
+    extend: {
+      fontFamily: {
+        inter: ["Inter"],
+        roboto: ["Roboto"],
+        // Make Inter the default sans font
+        sans: ["Inter"],
       },
     },
   },
