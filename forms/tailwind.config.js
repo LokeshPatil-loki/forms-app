@@ -17,10 +17,6 @@ module.exports = {
       white: "#ffffff",
       black: "#000000",
     },
-
-    colors: {
-      background: "#F8F8FB",
-    },
     extend: {},
   },
   plugins: [],
