@@ -22,3 +22,45 @@
   /* Borders */
   --color-border-muted: #e1e3e3;
 }
+
+.light {
+  /* Primary Colors */
+  --color-primary: #7052f2;
+  --color-on-primary: #ffffff;
+
+  /* Background and Surface */
+  --color-surface-muted: #f8f8fb;
+  --color-input-bg: #ededf2;
+
+  /* Text */
+  --color-text-primary: #011056;
+  --color-text-muted: #7f84a6;
+
+  /* Status Colors */
+  --color-success: #1bb965;
+  --color-error: #b91b27;
+
+  /* Borders */
+  --color-border-muted: #e1e3e3;
+}
+
+.dark {
+  /* Primary Colors */
+  --color-primary: #8b80ff; /* Slightly lighter for dark backgrounds */
+  --color-on-primary: #1a1a1a; /* Dark text on primary buttons */
+
+  /* Background and Surface */
+  --color-surface-muted: #1e1e2a; /* Darker surface for backgrounds */
+  --color-input-bg: #2a2a38; /* Input background matching dark theme */
+
+  /* Text */
+  --color-text-primary: #e6e6f0; /* Light text for high contrast */
+  --color-text-muted: #a3a3c2; /* Muted text for placeholders */
+
+  /* Status Colors */
+  --color-success: #23d18b; /* Bright green for success indicators */
+  --color-error: #f44747; /* Bright red for errors */
+
+  /* Borders */
+  --color-border-muted: #3a3a4a; /* Subtle muted border color */
+}
