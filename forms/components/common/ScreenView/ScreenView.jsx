@@ -1,12 +1,27 @@
-import { View, View as ViewBase } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  View,
+  View as ViewBase,
+} from "react-native";
 
 export const ScreenView = ({ children, className = "", ...props }) => {
   return (
-    <View
-      className={["bg-fill w-full h-full p-4 ", className].join(" ")}
+    <SafeAreaView
+      automaticallyAdjustKeyboardInsets={true}
+      className={["bg-fill w-full h-full  ", className].join(" ")}
       {...props}
     >
-      {children}
-    </View>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "position" : "height"}
+        className="h-full p-4"
+        enabled
+      >
+        <ScrollView>{children}</ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };

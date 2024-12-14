@@ -58,7 +58,7 @@ export default function SignInScreen() {
           </Text>
         </View>
 
-        <View className="flex gap-6">
+        <View className="flex gap-6 mt-4">
           <Controller
             control={control}
             name="email"

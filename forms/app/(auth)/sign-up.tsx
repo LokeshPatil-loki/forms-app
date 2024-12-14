@@ -28,7 +28,7 @@ export default function SignUpScreen() {
   });
 
   return (
-    <ScreenView className="flex-1 gap-6 px-4 py-16 ">
+    <ScreenView className="flex-1 gap-6 px-4 pt-16 ">
       <View className="flex gap-2">
         <View className="items-center">
           <View className="items-center justify-center w-24 h-24 rounded-full bg-primary/10">
@@ -106,7 +106,7 @@ export default function SignUpScreen() {
           )}
         />
       </View>
-      <View className="flex gap-3 mt-2">
+      <View className="flex gap-3 mt-6">
         <Button
           isLoading={isPending}
           isDisabled={isPending}
