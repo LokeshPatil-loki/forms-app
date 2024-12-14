@@ -17,8 +17,6 @@ interface TextInputProps extends _TextInputProps {
   labelClassName?: string;
   inputWrapperClassName?: string;
   inputClassName?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
   type?: "text" | "password";
 }
 
@@ -31,8 +29,6 @@ export const TextInput = ({
   labelClassName = "",
   inputWrapperClassName = "",
   inputClassName = "",
-  leftIcon,
-  rightIcon,
   type = "text",
   ...textInputProps
 }: TextInputProps) => {
@@ -59,19 +55,16 @@ export const TextInput = ({
         {required && <Text className="text-error"> *</Text>}
       </Text>
       <View
-        className={`flex-row items-center px-4 py-1 rounded-md bg-fill-muted 
+        className={`flex-row items-center px-4 py-4 rounded-md bg-fill-muted
           ${error ? "border border-error" : ""} 
           ${inputWrapperClassName}`}
       >
-        {leftIcon && <View className="mr-2">{leftIcon}</View>}
         <_TextInput
-          className={`flex-1 text-lg font-normal text-text-base font-roboto ${inputClassName}`}
+          className={`flex-1 text-text-base placeholder:text-text-muted text-lg font-normal  font-roboto ${inputClassName}`}
           secureTextEntry={type === "password" && !showPassword}
           {...textInputProps}
         />
-        {type === "password"
-          ? renderPasswordIcon()
-          : rightIcon && <View className="ml-2">{rightIcon}</View>}
+        {type === "password" && renderPasswordIcon()}
       </View>
       {(error || helperText) && (
         <Text

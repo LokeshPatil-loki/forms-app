@@ -1,20 +1,15 @@
-import { useLogin, useSignUp } from "@/hooks/use-auth";
-import { LoginData, SignUpData } from "@/types/auth";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { useSignUp } from "@/hooks/use-auth";
+import { SignUpData } from "@/types/auth";
+import { View, Text } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, signUpSchema } from "@/schemas/auth";
+import { signUpSchema } from "@/schemas/auth";
 import { Link } from "expo-router";
+import { Button, ScreenView, TextInput } from "@/components/common";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function SignUpScreen() {
-  const {
-    data,
-    error,
-    isPending,
-    isSuccess,
-    isError,
-    mutate: signUp,
-  } = useSignUp();
+  const { error, isPending, isError, mutate: signUp } = useSignUp();
 
   const {
     control,
@@ -33,120 +28,104 @@ export default function SignUpScreen() {
   });
 
   return (
-    <View className="justify-center flex-1 px-4">
-      <Text className="mb-8 text-2xl font-bold text-center">Welcome Back</Text>
-
-      {isError && (
-        <Text className="mb-4 text-sm text-center text-red-500">
-          {error.errors[0].message || "An error occurred during sign in"}
+    <ScreenView className="flex-1 gap-6 px-4 py-16 ">
+      <View className="flex gap-2">
+        <View className="items-center">
+          <View className="items-center justify-center w-24 h-24 rounded-full bg-primary/10">
+            <Ionicons name="person-circle-outline" size={80} color="#6366f1" />
+          </View>
+        </View>
+        <Text className="text-3xl font-bold tracking-wider text-center font-roboto text-text-base">
+          Sign Up
         </Text>
-      )}
-
-      <Controller
-        control={control}
-        name="firstName"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <TextInput
-              className="p-3 mb-2 border border-gray-300 rounded-lg"
-              placeholder="First Name"
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize="none"
-              keyboardType="default"
-            />
-            {errors.firstName && (
-              <Text className="mb-2 text-sm text-red-500">
-                {errors.firstName.message}
-              </Text>
-            )}
-          </>
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="lastName"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <TextInput
-              className="p-3 mb-2 border border-gray-300 rounded-lg"
-              placeholder="First Name"
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize="none"
-              keyboardType="default"
-            />
-            {errors.lastName && (
-              <Text className="mb-2 text-sm text-red-500">
-                {errors.lastName.message}
-              </Text>
-            )}
-          </>
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="email"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <TextInput
-              className="p-3 mb-2 border border-gray-300 rounded-lg"
-              placeholder="Email"
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize="none"
-              keyboardType="email-address"
-            />
-            {errors.email && (
-              <Text className="mb-2 text-sm text-red-500">
-                {errors.email.message}
-              </Text>
-            )}
-          </>
-        )}
-      />
-
-      <Controller
-        control={control}
-        name="password"
-        render={({ field: { onChange, value } }) => (
-          <>
-            <TextInput
-              className="p-3 mb-2 border border-gray-300 rounded-lg"
-              placeholder="Password"
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize="none"
-              secureTextEntry
-            />
-            {errors.password && (
-              <Text className="mb-2 text-sm text-red-500">
-                {errors.password.message}
-              </Text>
-            )}
-          </>
-        )}
-      />
-
-      <TouchableOpacity
-        onPress={onSubmit}
-        disabled={isPending}
-        className="p-4 mb-4 bg-blue-500 rounded-lg"
-      >
-        <Text className="font-semibold text-center text-white">
-          {isPending ? "Signing in..." : "Sign In"}
+        <Text className="text-base font-medium text-center text-text-base">
+          Create your account
         </Text>
-      </TouchableOpacity>
-      {/*  */}
-      <Link
-        href={"/sign-in"}
-        className="text-center text-gray-400 cursor-pointer"
-      >
-        Don't have an account?{" "}
-        <Text className="font-semibold text-gray-500">Sign Up</Text>
-      </Link>
-    </View>
+      </View>
+
+      <View className="flex gap-6">
+        <Controller
+          control={control}
+          name="firstName"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                error={errors.firstName?.message || ""}
+                label="First Name"
+                placeholder="Enter your first name"
+              />
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="lastName"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                error={errors.lastName?.message || ""}
+                label="Last Name"
+                placeholder="Enter your last name"
+              />
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                error={errors.email?.message || ""}
+                label="Email Address"
+                placeholder="Enter your email"
+              />
+            </>
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <>
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                error={errors.password?.message ?? undefined}
+                type="password"
+                label="Password"
+                placeholder="Enter your password"
+              />
+            </>
+          )}
+        />
+      </View>
+      <View className="flex gap-3 mt-2">
+        <Button
+          isLoading={isPending}
+          isDisabled={isPending}
+          onPress={onSubmit}
+          loadingText="Signing in..."
+          size="lg"
+        >
+          Sign Up
+        </Button>
+        <Text className="text-sm font-normal text-center text-text-muted">
+          <Link
+            href={"/sign-in"}
+            replace
+            className="font-normal text-text-base"
+          >
+            Already have an account?
+          </Link>
+        </Text>
+      </View>
+    </ScreenView>
   );
 }

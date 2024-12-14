@@ -21,11 +21,8 @@ export function useSignUp() {
       }
     },
     onSuccess: (response: AuthResponse) => {
-      // setAuth(response.data.user, response.data.token);
+      setAuth(response.data.user, response.data.token);
       router.replace("/(auth)/sign-in");
-    },
-    onError(error, variables, context) {
-      console.log(error, variables, context);
     },
   });
 }
@@ -49,7 +46,7 @@ export function useLogin() {
     },
     onSuccess: (response) => {
       setAuth(response.data.user, response.data.token);
-      router.replace("/");
+      router.push("/(app)");
     },
   });
 }
@@ -60,5 +57,6 @@ export function useLogout() {
   return () => {
     clearAuth();
     queryClient.clear();
+    router.replace("/sign-in");
   };
 }
