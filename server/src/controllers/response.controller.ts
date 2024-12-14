@@ -7,13 +7,13 @@ import { createApiResponse } from "../utils/ApiResponse";
 
 export const submitResponse = asyncHanlder(
   async (req: Request, res: Response) => {
-    const responseId = await createResponseProvider(
+    const formResponse = await createResponseProvider(
       req.body,
       req.user as UserPayload
     );
     return res.status(201).json(
       createApiResponse(true, "Form response submitted successfully", {
-        responseId,
+        response: formResponse,
       })
     );
   }

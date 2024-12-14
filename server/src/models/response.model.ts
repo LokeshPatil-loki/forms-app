@@ -33,6 +33,13 @@ ResponseSchema.methods.toJSON = function () {
   const response = this;
   const responseObject = response.toObject();
   responseObject.id = responseObject._id;
+  if (
+    typeof responseObject.respondent != "string" &&
+    responseObject.respondent._id
+  ) {
+    responseObject.respondent.id = responseObject.respondent._id;
+    delete responseObject.respondent._id;
+  }
   delete responseObject._id;
   return responseObject;
 };

@@ -22,5 +22,5 @@ export const createQuestionProvider = async (
   }
   form.questions.push(question._id);
   await form.save();
-  return question;
+  return await QuestionModel.findById(question._id);
 };

@@ -47,7 +47,7 @@ export const createResponseProvider = async (
   if (!formResponse) {
     throw new BadRequestError(ErrorMessages.RESPONSE_SUBMIT_FAILED);
   }
-  return formResponse._id;
+  return formResponse;
 };
 
 function isQuestion(obj: unknown): obj is Question {
