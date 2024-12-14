@@ -10,15 +10,6 @@ export interface User {
   createdForms: string[];
 }
 
-export interface AuthResponse {
-  success: boolean;
-  message: string;
-  data: {
-    token: string;
-    user: User;
-  };
-}
-
 export type SignUpData = z.infer<typeof signUpSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 
