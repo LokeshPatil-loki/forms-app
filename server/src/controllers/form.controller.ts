@@ -41,7 +41,9 @@ export const updateForm = asyncHanlder(async (req: Request, res: Response) => {
   return res
     .status(200)
     .json(
-      createApiResponse(true, "Form updated successfully", { updatedForm })
+      createApiResponse(true, "Form updated successfully", {
+        form: updatedForm,
+      })
     );
 });
 

@@ -210,7 +210,7 @@ Response (200):
   success: true,
   message: "Form updated successfully",
   data: {
-    updatedForm: {
+    form: {
       // Updated form object
     }
   }
