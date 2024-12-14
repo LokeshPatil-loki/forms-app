@@ -13,14 +13,29 @@ interface AuthState {
 
 const secureStorage = {
   getItem: async (name: string) => {
-    const value = await SecureStore.getItemAsync(name);
-    return value ? JSON.parse(value) : null;
+    try {
+      const value = await SecureStore.getItemAsync(name);
+      return value;
+    } catch (error) {
+      console.error(`Error getting item ${name}:`, error);
+      return null;
+    }
   },
   setItem: async (name: string, value: string) => {
-    await SecureStore.setItemAsync(name, value);
+    try {
+      console.log(`Saving to ${name}:`, value);
+      await SecureStore.setItemAsync(name, JSON.stringify(value)); // Serialize the value
+    } catch (error) {
+      console.error(`Error setting item ${name}:`, error);
+    }
   },
   removeItem: async (name: string) => {
-    await SecureStore.deleteItemAsync(name);
+    try {
+      console.log(`Removing ${name}`);
+      await SecureStore.deleteItemAsync(name);
+    } catch (error) {
+      console.error(`Error removing item ${name}:`, error);
+    }
   },
 };
 
@@ -35,7 +50,14 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-      storage: createJSONStorage(() => secureStorage),
+      storage: createJSONStorage(() => secureStorage), // Use custom storage
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.error("Rehydration error:", error);
+        } else {
+          console.log("Rehydrated state:", state);
+        }
+      },
     }
   )
 );
