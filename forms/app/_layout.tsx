@@ -5,17 +5,22 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import "../global.css";
+import { GestureHandlerRootView } from "react-native-gesture-handler"; // Add this import
 
 import { useColorScheme } from "@/hooks/theme/useColorScheme";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/api/query-client";
 import { View } from "react-native";
-
+import { createNotifications } from "react-native-notificated";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const { NotificationsProvider } = createNotifications({
+    isNotch: true,
+    notificationWidth: 500,
+  });
 
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -40,11 +45,15 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <View className="flex-1 w-screen h-screen light">
-        <Slot />
-        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      </View>
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
+        <View className="flex-1 w-screen h-screen light">
+          <NotificationsProvider>
+            <Slot />
+            <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+          </NotificationsProvider>
+        </View>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }

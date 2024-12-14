@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { AxiosError } from "axios";
 import { ApiError } from "@/types/auth";
+import { notify } from "react-native-notificated";
 
 export function useSignUp() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -12,6 +13,17 @@ export function useSignUp() {
     mutationFn: async (data: SignUpData) => {
       try {
         const response = await authApi.signUp(data);
+        notify("success", {
+          params: {
+            // description: "",
+            title: response.message,
+            style: {
+              titleSize: 20,
+              descriptionSize: 15,
+              borderType: "accent",
+            },
+          },
+        });
         return response;
       } catch (error) {
         if (error instanceof AxiosError) {

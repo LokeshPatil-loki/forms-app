@@ -16,7 +16,7 @@ export const ScreenView = ({ children, className = "", ...props }) => {
     >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "position" : "height"}
+        behavior={Platform.OS === "ios" ? "position" : "padding"}
         className="h-full p-4"
         enabled
       >

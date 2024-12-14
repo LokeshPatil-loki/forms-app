@@ -7,9 +7,11 @@ import { signUpSchema } from "@/schemas/auth";
 import { Link } from "expo-router";
 import { Button, ScreenView, TextInput } from "@/components/common";
 import { Ionicons } from "@expo/vector-icons";
+import { useEffect } from "react";
+import { notify } from "react-native-notificated";
 
 export default function SignUpScreen() {
-  const { error, isPending, isError, mutate: signUp } = useSignUp();
+  const { error, isSuccess, isPending, isError, mutate: signUp } = useSignUp();
 
   const {
     control,
