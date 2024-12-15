@@ -1,4 +1,6 @@
+import { z } from "zod";
 import { User } from "./auth";
+import { formSubmissionSchema } from "@/schemas/form-submission";
 
 export interface FormSubmission {
   id: string;
@@ -10,3 +12,5 @@ export interface FormSubmission {
   }[];
   submittedAt: string;
 }
+
+export type CreateFormSubmissionData = z.infer<typeof formSubmissionSchema>;
