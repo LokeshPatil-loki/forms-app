@@ -8,33 +8,25 @@ import { ApiError } from "@/types/auth";
 import { notify } from "react-native-notificated";
 import { AuthResponse } from "@/types/api/auth-response";
 import { ApiResponse } from "@/types/api/api-response";
+import { handleApiError } from "@/utils/handle-api-error";
 
 export function useSignUp() {
   const setAuth = useAuthStore((state) => state.setAuth);
   return useMutation<ApiResponse<AuthResponse>, ApiError, SignUpData>({
-    mutationFn: async (data: SignUpData) => {
-      try {
-        const response = await authApi.signUp(data);
-        notify("success", {
-          params: {
-            // description: "",
-            title: response.message,
-            style: {
-              titleSize: 20,
-              descriptionSize: 15,
-              borderType: "accent",
-            },
-          },
-        });
-        return response;
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          throw error.response?.data;
-        }
-        throw "An unexpected error occurred";
-      }
-    },
+    mutationFn: async (data: SignUpData) =>
+      handleApiError(() => authApi.signUp(data)),
     onSuccess: (response: ApiResponse<AuthResponse>) => {
+      notify("success", {
+        params: {
+          // description: "",
+          title: response.message,
+          style: {
+            titleSize: 20,
+            descriptionSize: 15,
+            borderType: "accent",
+          },
+        },
+      });
       setAuth(response.data.user, response.data.token);
       router.replace("/(auth)/sign-in");
     },
@@ -44,20 +36,8 @@ export function useSignUp() {
 export function useLogin() {
   const setAuth = useAuthStore((state) => state.setAuth);
   return useMutation<ApiResponse<AuthResponse>, string, LoginData>({
-    mutationFn: async (data: LoginData) => {
-      try {
-        const response = await authApi.login(data);
-        return response;
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          throw (
-            error.response?.data?.errors?.[0]?.message ||
-            "An error occurred during sign in"
-          );
-        }
-        throw "An unexpected error occurred";
-      }
-    },
+    mutationFn: async (data: LoginData) =>
+      handleApiError(() => authApi.login(data)),
     onSuccess: (response) => {
       setAuth(response.data.user, response.data.token);
       router.push("/(app)");
