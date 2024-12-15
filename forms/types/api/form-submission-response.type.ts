@@ -1,4 +1,4 @@
-import { FormSubmission } from "../form-submission";
+import { FormSubmission } from "../form-submission.type";
 
 export interface FormSubmissionResponse {
   response: FormSubmission;

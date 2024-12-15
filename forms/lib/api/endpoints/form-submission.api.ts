@@ -1,13 +1,13 @@
 import {
   CreateFormSubmissionData,
   FormSubmission,
-} from "@/types/form-submission";
+} from "@/types/form-submission.type";
 import { apiClient } from "../client";
-import { ApiResponse } from "@/types/api/api-response";
+import { ApiResponse } from "@/types/api/api-response.type";
 import {
   FormSubmissionResponse,
   FormSubmissionResponseList,
-} from "@/types/api/form-submission-response";
+} from "@/types/api/form-submission-response.type";
 
 export const FormSubmissionApi = {
   submitResponse: async (formSubmission: CreateFormSubmissionData) => {

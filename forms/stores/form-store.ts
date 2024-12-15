@@ -1,5 +1,5 @@
-import { Form } from "@/types/form";
-import { Question } from "@/types/question";
+import { Form } from "@/types/form.type";
+import { Question } from "@/types/question.type";
 import { create, createStore } from "zustand";
 
 interface FormState {

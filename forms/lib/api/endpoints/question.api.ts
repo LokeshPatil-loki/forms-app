@@ -1,11 +1,11 @@
-import { questionSchema } from "@/schemas/question";
+import { questionSchema } from "@/schemas/question.schema";
 import { z } from "zod";
 import { apiClient } from "../client";
-import { ApiResponse } from "@/types/api/api-response";
+import { ApiResponse } from "@/types/api/api-response.type";
 import {
   QuestionDeletedResponse,
   QuestionResponse,
-} from "@/types/api/question-response";
+} from "@/types/api/question-response.type";
 
 export const QuestionApi = {
   addQuestionToFrom: async (

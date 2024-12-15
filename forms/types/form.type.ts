@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { Question } from "./question";
-import { formSchema } from "@/schemas/form";
+import { Question } from "./question.type";
+import { formSchema } from "@/schemas/form.schema";
 export interface Form {
   id: string;
   title: string;

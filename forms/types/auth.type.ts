@@ -1,6 +1,6 @@
-import { loginSchema } from "@/schemas/auth";
+import { loginSchema } from "@/schemas/auth.schema";
 
-import { signUpSchema } from "@/schemas/auth";
+import { signUpSchema } from "@/schemas/auth.schema";
 import { z } from "zod";
 export interface User {
   id: string;

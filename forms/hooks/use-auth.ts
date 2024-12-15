@@ -1,13 +1,13 @@
-import { authApi } from "@/lib/api/endpoints/auth";
+import { authApi } from "@/lib/api/endpoints/auth.api";
 import { useAuthStore } from "@/stores/auth-store";
-import { LoginData, SignUpData } from "@/types/auth";
+import { LoginData, SignUpData } from "@/types/auth.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { AxiosError } from "axios";
-import { ApiError } from "@/types/auth";
+import { ApiError } from "@/types/auth.type";
 import { notify } from "react-native-notificated";
-import { AuthResponse } from "@/types/api/auth-response";
-import { ApiResponse } from "@/types/api/api-response";
+import { AuthResponse } from "@/types/api/auth-response.type";
+import { ApiResponse } from "@/types/api/api-response.type";
 import { handleApiError } from "@/utils/handle-api-error";
 
 export function useSignUp() {

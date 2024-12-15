@@ -1,15 +1,15 @@
-import { formApi } from "@/lib/api/endpoints/form";
-import { FormSubmissionApi } from "@/lib/api/endpoints/form-submission";
-import { ApiResponse } from "@/types/api/api-response";
+import { formApi } from "@/lib/api/endpoints/form.api";
+import { FormSubmissionApi } from "@/lib/api/endpoints/form-submission.api";
+import { ApiResponse } from "@/types/api/api-response.type";
 import {
   FormSubmissionResponse,
   FormSubmissionResponseList,
-} from "@/types/api/form-submission-response";
-import { ValidationErrorResponse } from "@/types/error/validation-error-response";
+} from "@/types/api/form-submission-response.type";
+import { ValidationErrorResponse } from "@/types/error/validation-error-response.type";
 import {
   CreateFormSubmissionData,
   FormSubmission,
-} from "@/types/form-submission";
+} from "@/types/form-submission.type";
 import { handleApiError } from "@/utils/handle-api-error";
 import { useMutation, useQuery } from "@tanstack/react-query";
 

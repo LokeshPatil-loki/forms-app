@@ -1,9 +1,9 @@
 import { useSignUp } from "@/hooks/use-auth";
-import { SignUpData } from "@/types/auth";
+import { SignUpData } from "@/types/auth.type";
 import { View, Text } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "@/schemas/auth";
+import { signUpSchema } from "@/schemas/auth.schema";
 import { Link } from "expo-router";
 import { Button, ScreenView, TextInput } from "@/components/common";
 import { Ionicons } from "@expo/vector-icons";

@@ -1,9 +1,9 @@
 import { useLogin } from "@/hooks/use-auth";
-import { LoginData } from "@/types/auth";
+import { LoginData } from "@/types/auth.type";
 import { Alert, Text } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "@/schemas/auth";
+import { loginSchema } from "@/schemas/auth.schema";
 import { Link } from "expo-router";
 import { Button, ScreenView, TextInput } from "@/components/common";
 import { View } from "react-native";

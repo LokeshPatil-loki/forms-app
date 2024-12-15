@@ -1,4 +1,4 @@
-import { Question } from "../question";
+import { Question } from "../question.type";
 
 export interface QuestionResponse {
   question: Question;

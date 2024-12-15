@@ -1,10 +1,10 @@
-import { CreateFormData, Form, UpdateFormData } from "@/types/form";
+import { CreateFormData, Form, UpdateFormData } from "@/types/form.type";
 import { apiClient } from "../client";
-import { ApiResponse } from "@/types/api/api-response";
+import { ApiResponse } from "@/types/api/api-response.type";
 import {
   FormListResponse,
   SingleFormResponse,
-} from "@/types/api/form-response";
+} from "@/types/api/form-response.type";
 
 export const formApi = {
   createForm: async (data: CreateFormData) => {

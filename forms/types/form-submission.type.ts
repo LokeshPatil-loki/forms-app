@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { User } from "./auth";
-import { formSubmissionSchema } from "@/schemas/form-submission";
+import { User } from "./auth.type";
+import { formSubmissionSchema } from "@/schemas/form-submission.schema";
 
 export interface FormSubmission {
   id: string;

@@ -1,4 +1,4 @@
-import { Form } from "../form";
+import { Form } from "../form.type";
 
 export interface FormListResponse {
   forms: Form[];

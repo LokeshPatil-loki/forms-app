@@ -12,6 +12,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/api/query-client";
 import { View } from "react-native";
 import { createNotifications } from "react-native-notificated";
+import * as SecureStorage from "expo-secure-store";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +22,8 @@ export default function RootLayout() {
     isNotch: true,
     notificationWidth: 500,
   });
+
+  console.log(SecureStorage.getItem("auth-storage"));
 
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),

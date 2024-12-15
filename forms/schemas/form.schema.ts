@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { questionSchema } from "./question";
+import { questionSchema } from "./question.schema";
 
 export const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
