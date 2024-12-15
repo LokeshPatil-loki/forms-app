@@ -12,31 +12,31 @@ export const formApi = {
       "/form",
       data
     );
-    return response;
+    return response.data;
   },
   updateForm: async (formId: string, data: UpdateFormData) => {
     const response = await apiClient.patch<ApiResponse<SingleFormResponse>>(
       `/form/${formId}`,
       data
     );
-    return response;
+    return response.data;
   },
   deleteForm: async (formId: string) => {
     const response = await apiClient.delete<ApiResponse<SingleFormResponse>>(
       `/form/${formId}`
     );
-    return response;
+    return response.data;
   },
   getForm: async (formId: string) => {
     const response = await apiClient.get<ApiResponse<SingleFormResponse>>(
       `/form/${formId}`
     );
-    return response;
+    return response.data;
   },
   getMyForms: async () => {
     const response = await apiClient.get<ApiResponse<FormListResponse>>(
       "/form"
     );
-    return response;
+    return response.data;
   },
 };
