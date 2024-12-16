@@ -15,24 +15,24 @@ export const QuestionApi = {
     const response = await apiClient.post<ApiResponse<QuestionResponse>>(
       `/question/form/${formId}`
     );
-    return response;
+    return response.data;
   },
   getQuestion: async (questionId: string) => {
     const response = await apiClient.get<ApiResponse<QuestionResponse>>(
       `/question/${questionId}`
     );
-    return response;
+    return response.data;
   },
   updateQuestion: async (questionId: string) => {
     const response = await apiClient.patch<ApiResponse<QuestionResponse>>(
       `/question/${questionId}`
     );
-    return response;
+    return response.data;
   },
   deleteQuestion: async (questionId: string) => {
     const response = await apiClient.delete<
       ApiResponse<QuestionDeletedResponse>
     >(`/question/${questionId}`);
-    return response;
+    return response.data;
   },
 };
