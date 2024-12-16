@@ -13,7 +13,8 @@ export const QuestionApi = {
     question: z.infer<typeof questionSchema>
   ) => {
     const response = await apiClient.post<ApiResponse<QuestionResponse>>(
-      `/question/form/${formId}`
+      `/question/form/${formId}`,
+      question
     );
     return response.data;
   },

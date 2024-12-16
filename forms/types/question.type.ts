@@ -1,4 +1,4 @@
-import { questionSchema } from "@/schemas/question.schema";
+import { questionSchema, textQuestionSchema } from "@/schemas/question.schema";
 import { z } from "zod";
 
 export type QuestionType = "Text" | "Grid" | "Checkbox";
@@ -9,7 +9,7 @@ export interface BaseQuestion {
   title: string;
   description?: string;
   isRequired: boolean;
-  imgUrl?: string;
+  imageUrl?: string;
 }
 
 export interface TextQuestion extends BaseQuestion {
@@ -40,5 +40,8 @@ export interface CheckboxQuestion extends BaseQuestion {
 export type Question = TextQuestion | GridQuestion | CheckboxQuestion;
 
 export type CreateQuestionData = z.infer<typeof questionSchema>;
+
+export type CreateTextQuestionData = z.infer<typeof textQuestionSchema>;
+export type UpdateTextQuestionData = Partial<CreateTextQuestionData>;
 
 export type UpdateQuestionData = Partial<CreateQuestionData>;
