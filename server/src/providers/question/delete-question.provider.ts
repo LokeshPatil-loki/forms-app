@@ -15,8 +15,8 @@ export const deleteQuestionProvider = async (
   if (!question) {
     throw new NotFoundError(ErrorMessages.QUESTION_NOT_FOUND);
   }
-  const form = await getFormProvider(question.form.toHexString(), loggedInUser);
-  if (!form.createdBy?.equals(loggedInUser._id)) {
+  const form = await FormModel.findById(question.form.toHexString());
+  if (!form?.createdBy?.equals(loggedInUser._id)) {
     throw new ForbiddenError(ErrorMessages.FORM_PERMISSION_DENIED);
   }
   const questionIndex = form.questions.indexOf(question._id);

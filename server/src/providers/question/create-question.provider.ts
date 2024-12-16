@@ -6,14 +6,15 @@ import { ForbiddenError } from "../../errors/ForbiddenError";
 import { QuestionModel } from "../../models/question.model";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { ErrorMessages } from "../../utils/ErrorMessages";
+import { FormModel } from "../../models/form.model";
 type CreateQuestionBody = z.infer<typeof CreateQuestionSchema.shape.body>;
 export const createQuestionProvider = async (
   body: CreateQuestionBody,
   formId: string,
   loggedInUser: UserPayload
 ) => {
-  const form = await getFormProvider(formId, loggedInUser);
-  if (!form.createdBy?.equals(loggedInUser._id)) {
+  const form = await FormModel.findById(formId);
+  if (!form?.createdBy?.equals(loggedInUser._id)) {
     throw new ForbiddenError(ErrorMessages.FORM_PERMISSION_DENIED);
   }
   const question = await QuestionModel.create({ ...body, form });
