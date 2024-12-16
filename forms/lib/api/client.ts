@@ -11,16 +11,28 @@ export const apiClient = axios.create({
 
 // Add token to headers
 apiClient.interceptors.request.use(async (config) => {
-  const token = await SecureStore.getItemAsync("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  try {
+    // Get token directly from SecureStore
+    const authData = await SecureStore.getItemAsync("auth-storage");
+    if (authData) {
+      const parsed = JSON.parse(JSON.parse(authData));
+      const token = parsed?.state?.token;
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+    return config;
+  } catch (error) {
+    console.error("Error getting token:", error);
+    return config;
   }
-  return config;
 });
 
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.log("error occured");
     return Promise.reject(error);
   }
 );

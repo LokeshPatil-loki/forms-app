@@ -1,0 +1,26 @@
+:root {
+  /* Primary Colors */
+  --color-accent: #7052f2;
+  --color-accent-hover: #5f43da;
+  --color-muted: #ededf2;
+
+  /* Background and Surface */
+  --color-fill: #f8f8fb;
+  --color-fill-muted: #ededf2;
+
+  /* Text */
+  --color-text-inverted: #ffffff;
+  --color-text-base: #011056;
+  --color-text-muted: #7f84a6;
+
+  --color-button-accent: #7052f2;
+  --color-button-accent-hover: #5f43da;
+  --color-button-muted: #ededf2;
+
+  /* Status Colors */
+  --color-success: #1bb965;
+  --color-error: #b91b27;
+
+  /* Borders */
+  --color-border-muted: #e1e3e3;
+}

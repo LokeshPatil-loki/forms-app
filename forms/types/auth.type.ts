@@ -5,7 +5,8 @@ import { z } from "zod";
 export interface User {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   createdAt: string;
   createdForms: string[];
 }

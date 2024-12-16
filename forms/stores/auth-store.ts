@@ -15,6 +15,11 @@ const secureStorage = {
   getItem: async (name: string) => {
     try {
       const value = await SecureStore.getItemAsync(name);
+
+      if (typeof value === "string") {
+        return JSON.parse(value);
+      }
+
       return value;
     } catch (error) {
       console.error(`Error getting item ${name}:`, error);

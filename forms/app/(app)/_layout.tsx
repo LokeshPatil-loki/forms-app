@@ -1,6 +1,5 @@
 import { useAuthStore } from "@/stores/auth-store";
 import { Redirect, Stack } from "expo-router";
-import * as SecureStorage from "expo-secure-store";
 
 export default function AppLayout() {
   const { isAuthenticated } = useAuthStore();
@@ -8,5 +7,11 @@ export default function AppLayout() {
   if (!isAuthenticated) {
     return <Redirect href={"/sign-in"} />;
   }
-  return <Stack />;
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="forms/all" />
+    </Stack>
+  );
 }

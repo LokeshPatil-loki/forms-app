@@ -37,7 +37,7 @@ export default function SignUpScreen() {
             <Ionicons name="person-circle-outline" size={80} color="#6366f1" />
           </View>
         </View>
-        <Text className="text-3xl font-bold tracking-wider text-center font-roboto text-text-base">
+        <Text className="text-3xl font-bold tracking-wider text-center font-body text-text-base">
           Sign Up
         </Text>
         <Text className="text-base font-medium text-center text-text-base">

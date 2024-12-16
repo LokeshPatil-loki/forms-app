@@ -6,6 +6,42 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "../global.css";
 import { GestureHandlerRootView } from "react-native-gesture-handler"; // Add this import
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_100Thin,
+  Inter_200ExtraLight,
+  Inter_300Light,
+  Inter_800ExtraBold,
+  Inter_900Black,
+} from "@expo-google-fonts/inter";
+import {
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+  Poppins_100Thin,
+  Poppins_100Thin_Italic,
+  Poppins_200ExtraLight,
+  Poppins_200ExtraLight_Italic,
+  Poppins_300Light,
+  Poppins_300Light_Italic,
+  Poppins_800ExtraBold,
+} from "@expo-google-fonts/poppins";
+import {
+  JetBrainsMono_400Regular,
+  JetBrainsMono_700Bold,
+} from "@expo-google-fonts/jetbrains-mono";
+
+import {
+  Roboto_100Thin,
+  Roboto_300Light,
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 
 import { useColorScheme } from "@/hooks/theme/useColorScheme";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -23,27 +59,36 @@ export default function RootLayout() {
     notificationWidth: 500,
   });
 
-  console.log(SecureStorage.getItem("auth-storage"));
-
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    Inter: require("../assets/fonts/Inter-Regular.otf"),
-    InterBold: require("../assets/fonts/Inter-Bold.otf"),
-    InterSemiBold: require("../assets/fonts/Inter-SemiBold.otf"),
-    InterMedium: require("../assets/fonts/Inter-Medium.otf"),
-    InterBlack: require("../assets/fonts/Inter-Black.otf"),
-    Roboto: require("../assets/fonts/Roboto-Regular.ttf"),
-    RobotoBold: require("../assets/fonts/Roboto-Bold.ttf"),
-    RobotoMedium: require("../assets/fonts/Roboto-Medium.ttf"),
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_100Thin,
+    Inter_200ExtraLight,
+    Inter_300Light,
+    Inter_800ExtraBold,
+    Inter_900Black,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+    JetBrainsMono_400Regular,
+    JetBrainsMono_700Bold,
+    Roboto_100Thin,
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 

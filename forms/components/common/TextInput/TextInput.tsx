@@ -60,7 +60,7 @@ export const TextInput = ({
           ${inputWrapperClassName}`}
       >
         <_TextInput
-          className={`flex-1 text-text-base placeholder:text-text-muted text-lg font-normal  font-roboto ${inputClassName}`}
+          className={`flex-1 text-text-base placeholder:text-text-muted text-lg font-normal  font-body ${inputClassName}`}
           secureTextEntry={type === "password" && !showPassword}
           {...textInputProps}
         />

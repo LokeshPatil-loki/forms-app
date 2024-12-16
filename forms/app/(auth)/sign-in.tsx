@@ -63,10 +63,10 @@ export default function SignInScreen() {
               />
             </View>
           </View>
-          <Text className="text-3xl font-bold tracking-wider text-center font-roboto text-text-base">
+          <Text className="text-3xl font-bold tracking-wider text-center font-body text-text-base">
             Welcome Back!
           </Text>
-          <Text className="text-base text-center text-text-base font-roboto">
+          <Text className="text-base text-center text-text-base font-body">
             Please sign in to continue to our form builder app. We are excited
             to have you back and look forward to helping you create amazing
             forms effortlessly.
