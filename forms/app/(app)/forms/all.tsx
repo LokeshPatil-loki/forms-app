@@ -6,7 +6,6 @@ import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { color } from "@cloudinary/url-gen/qualifiers/background";
 import { colors } from "@/utils/colors";
-console.log(colors.accent.rgb);
 
 export default function AllFormsScreen() {
   const { data: formsData, isLoading, error } = useGetMyForms();
