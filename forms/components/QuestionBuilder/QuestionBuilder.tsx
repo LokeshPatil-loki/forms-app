@@ -26,7 +26,7 @@ type QuestionButtonConfig = {
 
 const config: QuestionButtonConfig[] = [
   { type: "Text", icon: "text" },
-  { type: "Checkbox", icon: "checkbox-marked-outline" },
+  { type: "CheckBox", icon: "checkbox-marked-outline" },
   { type: "Grid", icon: "grid" },
 ];
 

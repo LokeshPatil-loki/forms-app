@@ -9,7 +9,7 @@ const questionTypeIcon: Record<
   "text" | "checkbox-marked-outline" | "grid"
 > = {
   Text: "text",
-  Checkbox: "checkbox-marked-outline",
+  CheckBox: "checkbox-marked-outline",
   Grid: "grid",
 };
 

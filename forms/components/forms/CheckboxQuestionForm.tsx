@@ -1,18 +1,26 @@
 import { Text, View } from "react-native";
 import { Button, Label, TextInput } from "../common";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { CreateCheckboxQuestionData } from "@/types/question.type";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { checkboxQuestionSchema } from "@/schemas/question.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Checkbox from "expo-checkbox";
 import { colors } from "@/utils/colors";
 import { useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAddQuestionToFrom } from "@/hooks/use-question";
+import { showAlert } from "@/utils/notify";
 
 export const CheckboxForm = () => {
   const { formId } = useLocalSearchParams();
-  const [count, setCount] = useState(0);
+  const {
+    mutate: addQuestionToForm,
+    isPending,
+    error,
+    isError,
+    isSuccess,
+  } = useAddQuestionToFrom();
   const {
     control,
     handleSubmit,
@@ -21,16 +29,39 @@ export const CheckboxForm = () => {
     resolver: zodResolver(checkboxQuestionSchema),
     defaultValues: {
       title: "",
-      type: "Checkbox",
+      type: "CheckBox",
       description: "",
       imageUrl: undefined,
       isRequired: false,
       checkboxConfig: {
-        options: [],
+        options: [{ id: "1", value: "" }],
         selectMultiple: false,
       },
     },
   });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "checkboxConfig.options",
+  });
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      showAlert({ type: "success", title: "Successfully added question" });
+      router.back();
+    } else if (!isPending && isError) {
+      showAlert({
+        type: "error",
+        title: "Unable to add question",
+        description: error.message,
+      });
+      console.error(error);
+    }
+  });
+
+  const onSubmit = (data: CreateCheckboxQuestionData) => {
+    addQuestionToForm({ formId: formId as string, data });
+  };
   return (
     <View className="flex gap-4 p-4 rounded-lg shadow-md bg-fill shadow-black/40">
       <Controller
@@ -78,42 +109,63 @@ export const CheckboxForm = () => {
           </View>
         )}
       />
+      <Controller
+        control={control}
+        name="checkboxConfig.selectMultiple"
+        render={({ field: { value, onChange } }) => (
+          <View className="flex flex-row items-center gap-2">
+            <Checkbox
+              onValueChange={onChange}
+              color={value ? colors.accent.rgb : colors.textBase.rgb}
+              value={value}
+            />
+            <Label>Allow Multiple Selection</Label>
+          </View>
+        )}
+      />
       <View>
         <Label className="mb-3">Options:</Label>
-        {Array.from(Array(count).keys()).map((_) => (
+        {fields.map((field, index) => (
           <View
             className="flex flex-row items-center justify-start gap-3 mb-3"
-            key={_}
+            key={field.id}
           >
-            <TextInput className="w-[87%]" placeholder={`Option ${_ + 1}`} />
+            <Controller
+              control={control}
+              name={`checkboxConfig.options.${index}.value`} // Bind to the value property
+              render={({ field: { value, onChange } }) => (
+                <TextInput
+                  className="w-[87%]"
+                  placeholder={`Option ${index + 1}`}
+                  error={errors.checkboxConfig?.options?.[0]?.value?.message}
+                  value={value}
+                  onChangeText={onChange}
+                />
+              )}
+            />
             <MaterialCommunityIcons
-              onPress={() => {
-                setCount(count - 1);
-              }}
+              onPress={() => remove(index)} // Remove the option
               name="delete-forever"
               size={30}
               color={colors.textMuted.rgb}
             />
           </View>
         ))}
-        <Button onPress={() => setCount(count + 1)} variant="ghost">
+        <Button
+          onPress={
+            () => append({ id: String(fields.length + 1), value: "" }) // Append a new option
+          }
+          variant="ghost"
+        >
           Add an Option
         </Button>
       </View>
+
       <View className="flex flex-row justify-end mt-2">
-        <Button
-          // isDisabled={isPending}
-          variant="ghost"
-          // onPress={() => router.back()}
-        >
+        <Button variant="ghost" onPress={() => router.back()}>
           Cancel
         </Button>
-        <Button
-        // isDisabled={isPending}
-        // onPress={handleSubmit(onSubmit)}
-        >
-          Add Question
-        </Button>
+        <Button onPress={handleSubmit(onSubmit)}>Add Question</Button>
       </View>
     </View>
   );
