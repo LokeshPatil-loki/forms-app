@@ -1,4 +1,10 @@
-import { TouchableOpacity, Text, ActivityIndicator, View } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+  View,
+  Pressable,
+} from "react-native";
 import { ButtonProps, ButtonStyleConfig } from "./Button.types";
 
 const buttonStyles: ButtonStyleConfig = {
@@ -61,7 +67,7 @@ export const Button = ({
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={onPress}
       disabled={isDisabled || isLoading}
       className={getButtonStyles()}
@@ -74,6 +80,6 @@ export const Button = ({
       </Text>
 
       {rightIcon && !isLoading && <View className="ml-2">{rightIcon}</View>}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
