@@ -35,7 +35,7 @@ export const FormCard = ({ form, onPress }: FormCardProps) => {
       onPress();
     } else {
       setCurrentForm(form);
-      router.push("/(app)/forms/123/builder");
+      router.push(`/(app)/forms/${form.id}/builder`);
     }
   };
 

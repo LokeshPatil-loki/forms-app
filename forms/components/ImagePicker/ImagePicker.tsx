@@ -6,11 +6,11 @@ import { useState } from "react";
 import { uploadToCloudinary } from "@/utils/cloudinary";
 
 interface ImagePickerProps {
-  onPress: () => void;
+  onImageUpdload: (url: string) => void;
   url: string;
 }
 
-export const ImagePicker = ({ onPress, url }: ImagePickerProps) => {
+export const ImagePicker = ({ onImageUpdload, url }: ImagePickerProps) => {
   const [imageUrl, setImageUrl] = useState(url);
   const hanldeImageUpload = async () => {
     try {
@@ -31,6 +31,7 @@ export const ImagePicker = ({ onPress, url }: ImagePickerProps) => {
       console.log(response);
       if (response) {
         setImageUrl(response?.url);
+        onImageUpdload(response?.url);
       }
     } catch (error) {
       console.error(error);

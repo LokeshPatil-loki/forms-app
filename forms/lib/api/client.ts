@@ -32,7 +32,7 @@ apiClient.interceptors.request.use(async (config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("error occured");
+    console.log("error occured", error);
     return Promise.reject(error);
   }
 );
