@@ -41,7 +41,7 @@ export default function AllFormsScreen() {
           </View>
 
           <TouchableOpacity
-            onPress={() => router.push("/forms/new")}
+            // onPress={() => router.push("/forms/new")}
             className="px-4 py-2 rounded-full bg-accent active:bg-accent-hover"
           >
             <View className="flex-row items-center">
@@ -88,7 +88,7 @@ export default function AllFormsScreen() {
             </Text>
             <TouchableOpacity
               className="flex-row items-center px-4 py-2 mt-4 rounded-full bg-accent active:bg-accent-hover"
-              onPress={() => router.refresh()}
+              onPress={() => router.reload()}
             >
               <MaterialIcons
                 name="refresh"
@@ -118,7 +118,7 @@ export default function AllFormsScreen() {
                   Create your first form to start collecting responses
                 </Text>
                 <TouchableOpacity
-                  onPress={() => router.push("/forms/new")}
+                  // onPress={() => router.push("/forms/new")}
                   className="px-4 py-2 mt-6 rounded-full bg-accent active:bg-accent-hover"
                 >
                   <View className="flex-row items-center">

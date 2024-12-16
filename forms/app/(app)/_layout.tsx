@@ -12,6 +12,7 @@ export default function AppLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="forms/all" />
+      <Stack.Screen name="forms/[formId]/builder" />
     </Stack>
   );
 }
