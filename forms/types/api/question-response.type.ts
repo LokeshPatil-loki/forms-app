@@ -5,5 +5,5 @@ export interface QuestionResponse {
 }
 
 export interface QuestionDeletedResponse {
-  deleteId: string;
+  deletedId: string;
 }

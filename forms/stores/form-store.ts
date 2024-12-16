@@ -7,7 +7,7 @@ interface FormState {
   setCurrentForm: (form: Form) => void;
   addQuestion: (quetion: Question) => void;
   updateQuestion: (index: number, question: Question) => void;
-  removeQuestion: (index: number) => void;
+  removeQuestion: (questionid: string) => void;
   updateFormDetails: (details: Partial<Form>) => void;
   reset: () => void;
 }
@@ -42,14 +42,16 @@ export const useFormStore = create<FormState>()((set) => ({
       };
     });
   },
-  removeQuestion: (index: number) => {
+  removeQuestion: (questionid: string) => {
     set((state) => {
       if (!state.currentForm) return { currentForm: state.currentForm };
 
-      const updatedQuestions = [...(state.currentForm.questions || [])];
-      if (index > 0 && index < updatedQuestions.length) {
-        updatedQuestions.splice(index, 1);
-      }
+      const updatedQuestions = [...(state.currentForm.questions || [])].filter(
+        (item) => item.id !== questionid
+      );
+      // if (index > 0 && index < updatedQuestions.length) {
+      //   updatedQuestions.splice(index, 1);
+      // }
       return {
         currentForm: {
           ...state.currentForm,

@@ -26,9 +26,7 @@ export const ImagePicker = ({ onImageUpdload, url }: ImagePickerProps) => {
         setImageUrl(url);
         return;
       }
-      console.log(result.assets[0].uri);
       const response = await uploadToCloudinary(result.assets[0].uri);
-      console.log(response);
       if (response) {
         setImageUrl(response?.url);
         onImageUpdload(response?.url);

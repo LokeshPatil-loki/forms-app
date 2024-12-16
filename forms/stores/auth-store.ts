@@ -28,7 +28,6 @@ const secureStorage = {
   },
   setItem: async (name: string, value: string) => {
     try {
-      console.log(`Saving to ${name}:`, value);
       await SecureStore.setItemAsync(name, JSON.stringify(value)); // Serialize the value
     } catch (error) {
       console.error(`Error setting item ${name}:`, error);
@@ -36,7 +35,6 @@ const secureStorage = {
   },
   removeItem: async (name: string) => {
     try {
-      console.log(`Removing ${name}`);
       await SecureStore.deleteItemAsync(name);
     } catch (error) {
       console.error(`Error removing item ${name}:`, error);
