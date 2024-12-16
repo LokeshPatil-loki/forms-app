@@ -1,4 +1,5 @@
 import { Button, ScreenView, TextInput } from "@/components/common";
+import { CheckboxForm } from "@/components/forms";
 import { TextQuestionForm } from "@/components/forms/TextQuestionForm";
 import { router, useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
@@ -13,7 +14,7 @@ const AddQuestionScreen = () => {
           Add a Question
         </Text>
       </View>
-      <TextQuestionForm />
+      <CheckboxForm />
     </ScreenView>
   );
 };

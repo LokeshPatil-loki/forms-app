@@ -9,7 +9,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 interface TextInputProps extends _TextInputProps {
-  label: string;
+  label?: string;
   error?: string;
   helperText?: string;
   required?: boolean;
@@ -48,12 +48,14 @@ export const TextInput = ({
 
   return (
     <View className={`${containerClassName}`}>
-      <Text
-        className={`mb-2 text-lg font-medium text-text-base ${labelClassName}`}
-      >
-        {label}
-        {required && <Text className="text-error"> *</Text>}
-      </Text>
+      {label && (
+        <Text
+          className={`mb-2 text-lg font-medium text-text-base ${labelClassName}`}
+        >
+          {label}
+          {required && <Text className="text-error"> *</Text>}
+        </Text>
+      )}
       <View
         className={`flex-row items-center px-4 py-4 rounded-md bg-fill-muted
           ${error ? "border border-error" : ""} 

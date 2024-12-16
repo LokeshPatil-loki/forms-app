@@ -1,4 +1,8 @@
-import { questionSchema, textQuestionSchema } from "@/schemas/question.schema";
+import {
+  checkboxQuestionSchema,
+  questionSchema,
+  textQuestionSchema,
+} from "@/schemas/question.schema";
 import { z } from "zod";
 
 export type QuestionType = "Text" | "Grid" | "Checkbox";
@@ -43,5 +47,8 @@ export type CreateQuestionData = z.infer<typeof questionSchema>;
 
 export type CreateTextQuestionData = z.infer<typeof textQuestionSchema>;
 export type UpdateTextQuestionData = Partial<CreateTextQuestionData>;
+
+export type CreateCheckboxQuestionData = z.infer<typeof checkboxQuestionSchema>;
+export type UpdateCheckboxQuestionData = Partial<CreateCheckboxQuestionData>;
 
 export type UpdateQuestionData = Partial<CreateQuestionData>;
