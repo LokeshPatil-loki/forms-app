@@ -5,7 +5,7 @@ import {
 } from "@/schemas/question.schema";
 import { z } from "zod";
 
-export type QuestionType = "Text" | "Grid" | "Checkbox";
+export type QuestionType = "Text" | "Grid" | "CheckBox";
 
 export interface BaseQuestion {
   id: string;
@@ -34,7 +34,7 @@ export interface GridQuestion extends BaseQuestion {
 }
 
 export interface CheckboxQuestion extends BaseQuestion {
-  type: "Checkbox";
+  type: "CheckBox";
   checkboxConfig: {
     options: string[];
     selectMultiple: boolean;

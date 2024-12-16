@@ -34,9 +34,16 @@ export const gridQuestionSchema = questionBaseSchema.extend({
 // Checkbox question schema
 // has all the properties of the base schema plus the type and checkboxConfig properties required for checkbox questions
 export const checkboxQuestionSchema = questionBaseSchema.extend({
-  type: z.literal("Checkbox"),
+  type: z.literal("CheckBox"),
   checkboxConfig: z.object({
-    options: z.array(z.string()).min(1, "Minimum 1 option is required"),
+    options: z
+      .array(
+        z.object({
+          id: z.string(), // Ensure each option has an id
+          value: z.string().min(1, "Option value cannot be empty"),
+        })
+      )
+      .min(1, "Minimum 1 option is required"),
     selectMultiple: z.boolean(),
   }),
 });

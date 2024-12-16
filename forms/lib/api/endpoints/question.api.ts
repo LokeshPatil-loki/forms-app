@@ -12,9 +12,22 @@ export const QuestionApi = {
     formId: string,
     question: z.infer<typeof questionSchema>
   ) => {
+    const transformedQuestion =
+      question.type === "CheckBox"
+        ? {
+            ...question,
+            checkboxConfig: {
+              ...question.checkboxConfig,
+              options: question.checkboxConfig.options.map(
+                (option) => option.value
+              ),
+            },
+          }
+        : question;
+
     const response = await apiClient.post<ApiResponse<QuestionResponse>>(
       `/question/form/${formId}`,
-      question
+      transformedQuestion
     );
     return response.data;
   },
