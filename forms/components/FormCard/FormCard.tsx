@@ -2,6 +2,8 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Form } from "@/types/form.type";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useFormState } from "react-hook-form";
+import { useFormStore } from "@/stores/form-store";
 
 interface FormCardProps {
   form: Form;
@@ -27,11 +29,13 @@ const styles = StyleSheet.create({
 });
 
 export const FormCard = ({ form, onPress }: FormCardProps) => {
+  const { setCurrentForm } = useFormStore();
   const handlePress = () => {
     if (onPress) {
       onPress();
     } else {
-      router.push(`/sign-in`);
+      setCurrentForm(form);
+      router.push("/(app)/forms/123/builder");
     }
   };
 
