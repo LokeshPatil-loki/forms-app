@@ -23,7 +23,7 @@
 
   /* Status Colors */
   --color-success-rgb: 27, 185, 101;
-  --color-error-rgb: 185, 27, 39;
+  --color-error-rgb: rgb(245, 145, 154);
 
   /* Borders */
   --color-border-muted-rgb: 225, 227, 227;
