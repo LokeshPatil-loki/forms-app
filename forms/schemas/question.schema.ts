@@ -5,18 +5,20 @@ export const questionBaseSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().optional(),
   isRequired: z.boolean().optional(),
-  imgUrl: z.string().optional(),
+  imageUrl: z.string().optional(),
 });
 
 // Text question schema
 // has all the properties of the base schema plus the type and validation properties required for text questions
 export const textQuestionSchema = questionBaseSchema.extend({
   type: z.literal("Text"),
-  validation: z.object({
-    minLength: z.number().optional(),
-    maxLength: z.number().optional(),
-    regex: z.string().optional(),
-  }),
+  validation: z
+    .object({
+      minLength: z.number().optional(),
+      maxLength: z.number().optional(),
+      regex: z.string().optional(),
+    })
+    .strict(),
 });
 
 // Grid question schema

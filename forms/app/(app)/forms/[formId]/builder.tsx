@@ -18,7 +18,7 @@ import {
 import { GlyphMap } from "@expo/vector-icons/build/createIconSet";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BlurView } from "expo-blur";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
@@ -127,7 +127,7 @@ export default function FormBuilderScreen() {
               Questions
             </Text>
             <Button
-              onPress={handleSubmit(onFormSave)}
+              onPress={() => router.push(`/forms/${formId}/question/add`)}
               variant="ghost"
               size="sm"
             >
