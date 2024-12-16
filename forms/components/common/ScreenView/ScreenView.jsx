@@ -20,7 +20,7 @@ export const ScreenView = ({ children, className = "", ...props }) => {
         className="h-full p-4"
         enabled
       >
-        <ScrollView>{children}</ScrollView>
+        {children}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
