@@ -13,7 +13,7 @@ const buttonStyles: ButtonStyleConfig = {
     primary: "bg-accent active:bg-accent-hover active:text-text-base",
     secondary: "bg-button-muted active:bg-muted",
     outline: "border border-accent active:bg-accent/10",
-    ghost: "bg-transparent active:bg-accent/10",
+    ghost: "bg-transparent active:opacity-80",
     danger: "bg-status-error active:opacity-90",
     success: "bg-status-success active:opacity-90",
   },
@@ -58,7 +58,7 @@ export const Button = ({
       primary: "text-text-inverted  ",
       secondary: "text-text-base",
       outline: "text-accent",
-      ghost: "text-accent",
+      ghost: "text-accent text-lg",
       danger: "text-text-inverted",
       success: "text-text-inverted",
     };
