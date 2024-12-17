@@ -91,7 +91,10 @@ export default function FormBuilderScreen() {
           Publish
         </Button>
       </View>
-      <ScrollView>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex gap-5 mt-4 rounded-lg">
           <Controller
             control={control}
