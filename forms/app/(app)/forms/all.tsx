@@ -1,14 +1,32 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { ScreenView, FormCard } from "@/components/common";
-import { useGetMyForms } from "@/hooks/use-form";
+import { useCreateForm, useGetMyForms } from "@/hooks/use-form";
 import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { BlurView } from "expo-blur";
 import { color } from "@cloudinary/url-gen/qualifiers/background";
 import { colors } from "@/utils/colors";
+import { useEffect } from "react";
 
 export default function AllFormsScreen() {
   const { data: formsData, isLoading, error } = useGetMyForms();
+
+  const {
+    mutate: createForm,
+    isSuccess,
+    isPending,
+    data: createFormData,
+  } = useCreateForm();
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push(`/(app)/forms/${createFormData.data.form.id}/builder`);
+    }
+  }, [isSuccess, isPending, createFormData]);
+
+  const createNewForm = () => {
+    createForm({ title: "Untitled" });
+  };
 
   return (
     <ScreenView className="flex-1">
@@ -40,7 +58,7 @@ export default function AllFormsScreen() {
           </View>
 
           <TouchableOpacity
-            // onPress={() => router.push("/forms/new")}
+            onPress={createNewForm}
             className="px-4 py-2 rounded-full bg-accent active:bg-accent-hover"
           >
             <View className="flex-row items-center">

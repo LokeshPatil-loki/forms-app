@@ -7,3 +7,7 @@ export interface FormListResponse {
 export interface SingleFormResponse {
   form: Form;
 }
+
+export interface FormPublishResponse {
+  shareableLink: string;
+}

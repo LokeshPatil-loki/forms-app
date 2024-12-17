@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import { Button, FormCard, Loading, ScreenView } from "@/components/common";
 import { useLogout } from "@/hooks/use-auth";
-import { useGetMyForms } from "@/hooks/use-form";
+import { useCreateForm, useGetMyForms } from "@/hooks/use-form";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -11,15 +11,32 @@ import { Link } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { StatsCard } from "@/components/StatsCard";
 import { colors } from "@/utils/colors";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const { user } = useAuthStore();
   const logout = useLogout();
   const { data: formsData, isLoading, error } = useGetMyForms();
+  const {
+    mutate: createForm,
+    isSuccess,
+    isPending,
+    data: createFormData,
+  } = useCreateForm();
 
   const handleViewAll = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     router.push("/forms/all");
+  };
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      router.push(`/(app)/forms/${createFormData.data.form.id}/builder`);
+    }
+  }, [isSuccess, isPending, createFormData]);
+
+  const createNewForm = () => {
+    createForm({ title: "Untitled" });
   };
 
   return (
@@ -62,7 +79,7 @@ export default function HomePage() {
           />
         </View>
         <Button
-          // onPress={() => router.push("/(app)/forms/builder")}
+          onPress={createNewForm}
           leftIcon={
             <MaterialIcons
               name="add"

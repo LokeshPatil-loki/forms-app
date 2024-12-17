@@ -2,7 +2,7 @@ import { ScreenView, TextInput, Button } from "@/components/common";
 import { ImagePicker } from "@/components/ImagePicker";
 import { QuestionTypeListItem } from "@/components/ListItem/QuestionTypeListItem";
 import { QuestionBuilder } from "@/components/QuestionBuilder";
-import { useUpdateForm } from "@/hooks/use-form";
+import { usePublishForm, useUpdateForm } from "@/hooks/use-form";
 import { formSchema } from "@/schemas/form.schema";
 import { useFormStore } from "@/stores/form-store";
 import { shadowStyle } from "@/styles";
@@ -62,14 +62,33 @@ export default function FormBuilderScreen() {
       });
     }
   }, [isSuccess, isPending, isError, error]);
+
+  const {
+    mutateAsync: publishForm,
+    isSuccess: publishSuccess,
+    error: publishErrors,
+  } = usePublishForm();
+
+  console.log(publishErrors);
+
+  const handlePublishForm = async () => {
+    const res = await publishForm(formId as string);
+    if (publishSuccess) {
+      showAlert({
+        type: "success",
+        title: res.message,
+        description: res.data.shareableLink,
+      });
+    }
+  };
   return (
     <ScreenView className="p-4 mt-2">
       <View className="flex flex-row items-center justify-between">
         <Text className="text-2xl font-bold font-display text-text-base">
           Build Form
         </Text>
-        <Button onPress={handleSubmit(onFormSave)} variant="ghost" size="sm">
-          Save
+        <Button onPress={handlePublishForm} variant="ghost" size="sm">
+          Publish
         </Button>
       </View>
       <ScrollView>

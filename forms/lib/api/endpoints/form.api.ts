@@ -3,6 +3,7 @@ import { apiClient } from "../client";
 import { ApiResponse } from "@/types/api/api-response.type";
 import {
   FormListResponse,
+  FormPublishResponse,
   SingleFormResponse,
 } from "@/types/api/form-response.type";
 
@@ -36,6 +37,12 @@ export const formApi = {
   getMyForms: async () => {
     const response = await apiClient.get<ApiResponse<FormListResponse>>(
       "/form"
+    );
+    return response.data;
+  },
+  publishForm: async (formId: string) => {
+    const response = await apiClient.patch<ApiResponse<FormPublishResponse>>(
+      `/form/${formId}/publish`
     );
     return response.data;
   },

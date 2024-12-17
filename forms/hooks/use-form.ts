@@ -4,6 +4,7 @@ import { useFormStore } from "@/stores/form-store";
 import { ApiResponse } from "@/types/api/api-response.type";
 import {
   FormListResponse,
+  FormPublishResponse,
   SingleFormResponse,
 } from "@/types/api/form-response.type";
 import { ValidationErrorResponse } from "@/types/error/validation-error-response.type";
@@ -70,6 +71,18 @@ export function useDeleteForm() {
   >({
     mutationFn: async (formId: string) =>
       handleApiError(() => formApi.deleteForm(formId)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["forms"],
+      });
+    },
+  });
+}
+
+export function usePublishForm() {
+  return useMutation<ApiResponse<FormPublishResponse>, string, string>({
+    mutationFn: async (formId: string) =>
+      handleApiError(() => formApi.publishForm(formId)),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["forms"],
