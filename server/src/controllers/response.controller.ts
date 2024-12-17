@@ -4,6 +4,23 @@ import { createResponseProvider } from "../providers/response/create-response.pr
 import { UserPayload } from "../types/user-payload";
 import { getFormResponsesProvider } from "../providers/response/get-form-responses.provider";
 import { createApiResponse } from "../utils/ApiResponse";
+import { ObjectId } from "mongodb";
+
+const convertObjectIdToString = (data: any): any => {
+  if (Array.isArray(data)) {
+    return data.map(convertObjectIdToString);
+  } else if (data && typeof data === "object") {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [
+        key,
+        value instanceof ObjectId
+          ? value.toString()
+          : convertObjectIdToString(value),
+      ])
+    );
+  }
+  return data;
+};
 
 export const submitResponse = asyncHanlder(
   async (req: Request, res: Response) => {
@@ -11,6 +28,7 @@ export const submitResponse = asyncHanlder(
       req.body,
       req.user as UserPayload
     );
+    // const formatedResponse = convertObjectIdToString(formResponse);
     return res.status(201).json(
       createApiResponse(true, "Form response submitted successfully", {
         response: formResponse,

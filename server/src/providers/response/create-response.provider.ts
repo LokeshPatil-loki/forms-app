@@ -47,7 +47,9 @@ export const createResponseProvider = async (
   if (!formResponse) {
     throw new BadRequestError(ErrorMessages.RESPONSE_SUBMIT_FAILED);
   }
-  return formResponse;
+
+  const res = await ResponseModel.findById(formResponse._id).lean();
+  return res;
 };
 
 function isQuestion(obj: unknown): obj is Question {
@@ -70,9 +72,10 @@ function validateFormResponses(
       return new ObjectId(responseItem.question).equals(question._id as string);
     });
 
-    if (!isQuestion(question)) {
-      throw new InternalServerError(ErrorMessages.POPULATE_QUESTIONS_FAILED);
-    }
+    // if (!isQuestion(question)) {
+    //   console.log(question);
+    //   throw new InternalServerError(ErrorMessages.POPULATE_QUESTIONS_FAILED);
+    // }
 
     if (response) {
       switch (question.type) {
@@ -138,7 +141,6 @@ const validateCheckBoxResponse = (
 ) => {
   const answer = response.answer as string[];
   const checkboxConfig = question.checkboxConfig!;
-  console.log({ answer, question });
   if (question.isRequired && (!answer || answer.length === 0)) {
     validationErrors.push(
       `Question "${question.title}" requires at least one selection`

@@ -14,7 +14,6 @@ export const createQuestion = asyncHanlder(
       req.params.formId,
       req.user as UserPayload
     );
-    console.log(question);
     return res
       .status(201)
       .json(

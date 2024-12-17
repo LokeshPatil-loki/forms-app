@@ -22,8 +22,6 @@ export const createFormProvider = async (
     throw new BadRequestError(ErrorMessages.FORM_CREATE_FAILED);
   }
 
-  console.log(form);
-
   return form;
 };
 
