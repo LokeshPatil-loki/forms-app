@@ -13,7 +13,11 @@ import { showAlert } from "@/utils/notify";
 import Checkbox from "expo-checkbox";
 import { ScrollView } from "react-native-gesture-handler";
 
-export const GridQuestionForm = () => {
+interface GridQuestionFormProps {
+  onCancel: () => void;
+}
+
+export const GridQuestionForm = ({ onCancel }: GridQuestionFormProps) => {
   const { formId } = useLocalSearchParams();
   const rowsScrollRef = useRef<ScrollView>(null);
   const columnsScrollRef = useRef<ScrollView>(null);
@@ -238,11 +242,7 @@ export const GridQuestionForm = () => {
         </Button>
       </View>
       <View className="flex flex-row justify-end mt-2">
-        <Button
-          isDisabled={isPending}
-          variant="ghost"
-          onPress={() => router.back()}
-        >
+        <Button isDisabled={isPending} variant="ghost" onPress={onCancel}>
           Cancel
         </Button>
         <Button isDisabled={isPending} onPress={handleSubmit(onSubmit)}>

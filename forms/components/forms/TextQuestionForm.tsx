@@ -14,7 +14,11 @@ import { useEffect, useState } from "react";
 import { useAddQuestionToFrom } from "@/hooks/use-question";
 import { showAlert } from "@/utils/notify";
 
-export const TextQuestionForm = () => {
+interface TextQuestionFormProps {
+  onCancel: () => void;
+}
+
+export const TextQuestionForm = ({ onCancel }: TextQuestionFormProps) => {
   const { formId } = useLocalSearchParams();
   const {
     control,
@@ -139,11 +143,7 @@ export const TextQuestionForm = () => {
         />
       </View>
       <View className="flex flex-row justify-end mt-2">
-        <Button
-          isDisabled={isPending}
-          variant="ghost"
-          onPress={() => router.back()}
-        >
+        <Button isDisabled={isPending} variant="ghost" onPress={onCancel}>
           Cancel
         </Button>
         <Button isDisabled={isPending} onPress={handleSubmit(onSubmit)}>

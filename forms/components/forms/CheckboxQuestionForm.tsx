@@ -12,7 +12,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useAddQuestionToFrom } from "@/hooks/use-question";
 import { showAlert } from "@/utils/notify";
 
-export const CheckboxForm = () => {
+interface CheckBoxFormProps {
+  onCancel: () => void;
+}
+
+export const CheckboxForm = ({ onCancel }: CheckBoxFormProps) => {
   const { formId } = useLocalSearchParams();
   const {
     mutate: addQuestionToForm,
@@ -137,7 +141,9 @@ export const CheckboxForm = () => {
                 <TextInput
                   className="w-[87%]"
                   placeholder={`Option ${index + 1}`}
-                  error={errors.checkboxConfig?.options?.[0]?.value?.message}
+                  error={
+                    errors.checkboxConfig?.options?.[index]?.value?.message
+                  }
                   value={value}
                   onChangeText={onChange}
                 />
@@ -162,7 +168,7 @@ export const CheckboxForm = () => {
       </View>
 
       <View className="flex flex-row justify-end mt-2">
-        <Button variant="ghost" onPress={() => router.back()}>
+        <Button variant="ghost" onPress={onCancel}>
           Cancel
         </Button>
         <Button onPress={handleSubmit(onSubmit)}>Add Question</Button>
