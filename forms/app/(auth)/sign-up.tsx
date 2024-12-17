@@ -9,6 +9,7 @@ import { Button, ScreenView, TextInput } from "@/components/common";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect } from "react";
 import { notify } from "react-native-notificated";
+import { showAlert } from "@/utils/notify";
 
 export default function SignUpScreen() {
   const { error, isSuccess, isPending, isError, mutate: signUp } = useSignUp();
@@ -24,6 +25,12 @@ export default function SignUpScreen() {
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (!isPending && isError) {
+      showAlert({ type: "error", title: error.errors[0].message });
+    }
+  }, [error, isError, isPending]);
 
   const onSubmit = handleSubmit((data) => {
     signUp(data);

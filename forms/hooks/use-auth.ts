@@ -9,6 +9,7 @@ import { notify } from "react-native-notificated";
 import { AuthResponse } from "@/types/api/auth-response.type";
 import { ApiResponse } from "@/types/api/api-response.type";
 import { handleApiError } from "@/utils/handle-api-error";
+import { showAlert } from "@/utils/notify";
 
 export function useSignUp() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -16,17 +17,7 @@ export function useSignUp() {
     mutationFn: async (data: SignUpData) =>
       handleApiError(() => authApi.signUp(data)),
     onSuccess: (response: ApiResponse<AuthResponse>) => {
-      notify("success", {
-        params: {
-          // description: "",
-          title: response.message,
-          style: {
-            titleSize: 20,
-            descriptionSize: 15,
-            borderType: "accent",
-          },
-        },
-      });
+      showAlert({ type: "success", title: response.message });
       setAuth(response.data.user, response.data.token);
       router.replace("/(auth)/sign-in");
     },
@@ -35,7 +26,7 @@ export function useSignUp() {
 
 export function useLogin() {
   const setAuth = useAuthStore((state) => state.setAuth);
-  return useMutation<ApiResponse<AuthResponse>, string, LoginData>({
+  return useMutation<ApiResponse<AuthResponse>, ApiError, LoginData>({
     mutationFn: async (data: LoginData) =>
       handleApiError(() => authApi.login(data)),
     onSuccess: (response) => {

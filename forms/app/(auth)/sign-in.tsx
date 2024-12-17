@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useEffect } from "react";
 import { notify } from "react-native-notificated";
+import { showAlert } from "@/utils/notify";
 
 export default function SignInScreen() {
   const { error, isPending, isError, mutate: login } = useLogin();
@@ -28,20 +29,11 @@ export default function SignInScreen() {
 
   useEffect(() => {
     if (isError && error) {
-      // Alert.alert("Sign In Failed", error);
-      notify("error", {
-        params: {
-          description: error,
-          title: "Authentication Failure",
-          style: {
-            titleSize: 20,
-            titleColor: "#FF0000",
-            descriptionSize: 15,
-            accentColor: "#FF0000",
-            borderType: "accent",
-            defaultIconType: "no-icon",
-          },
-        },
+      console.log();
+      showAlert({
+        type: "error",
+        title: "Authentication Failure",
+        description: error.errors[0].message,
       });
     }
   }, [isError, error]);
