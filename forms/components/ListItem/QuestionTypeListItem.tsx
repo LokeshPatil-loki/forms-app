@@ -1,5 +1,9 @@
 import { Question, QuestionType } from "@/types/question.type";
-import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { colors } from "@/utils/colors";
 import { useDeleteQuestion } from "@/hooks/use-question";
@@ -45,11 +49,11 @@ export const QuestionTypeListItem = ({
           color={colors.error.rgb}
         />
       ) : (
-        <MaterialCommunityIcons
+        <MaterialIcons
           onPress={async () => {
             deleteQuestion();
           }}
-          name="delete-forever"
+          name="delete-outline"
           size={24}
           color={colors.error.rgb}
         />

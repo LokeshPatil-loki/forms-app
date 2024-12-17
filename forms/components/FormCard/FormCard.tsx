@@ -1,9 +1,12 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Form } from "@/types/form.type";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { useFormState } from "react-hook-form";
 import { useFormStore } from "@/stores/form-store";
+import * as Clipboard from "expo-clipboard";
+import { showAlert } from "@/utils/notify";
+import { useDeleteForm } from "@/hooks/use-form";
+import { colors } from "@/utils/colors";
 
 interface FormCardProps {
   form: Form;
@@ -24,12 +27,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 5, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 0.8, // Android shadow
+    elevation: 0.8,
   },
 });
 
 export const FormCard = ({ form, onPress }: FormCardProps) => {
   const { setCurrentForm } = useFormStore();
+  const { mutate: deleteForm, isPending } = useDeleteForm();
+  console.log(isPending);
+
   const handlePress = () => {
     if (onPress) {
       onPress();
@@ -39,12 +45,23 @@ export const FormCard = ({ form, onPress }: FormCardProps) => {
     }
   };
 
+  const handleShare = async () => {
+    if (form.shareableLink) {
+      await Clipboard.setStringAsync(form.shareableLink);
+      showAlert({
+        type: "success",
+        title: "Link Copied!",
+        description: "Shareable link copied to clipboard",
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    deleteForm(form.id);
+  };
+
   return (
-    <Pressable
-      onPress={handlePress}
-      // className="flex-row items-start p-4 mb-4 transition-all bg-white rounded-lg active:bg-muted"
-      style={[styles.card, styles.shadow]}
-    >
+    <Pressable onPress={handlePress} style={[styles.card, styles.shadow]}>
       {form.headerImageUrl ? (
         <Image
           source={{ uri: form.headerImageUrl }}
@@ -89,15 +106,65 @@ export const FormCard = ({ form, onPress }: FormCardProps) => {
           </Text>
         </View>
       </View>
-      {form.isPublished ? (
-        <View className="bg-[#DCFCE7] px-3 py-1.5 rounded-md w-15">
-          <Text className="text-xs font-medium text-[#15803D]">Published</Text>
-        </View>
-      ) : (
-        <View className="bg-muted px-3 py-1.5 rounded-md ">
-          <Text className="text-xs font-medium text-text-base">Draft</Text>
-        </View>
-      )}
+
+      <View className="flex flex-col items-end gap-2">
+        {form.isPublished ? (
+          <>
+            <View className="bg-[#DCFCE7] px-3 py-1.5 rounded-md">
+              <Text className="text-xs font-medium text-[#15803D]">
+                Published
+              </Text>
+            </View>
+            <View className="flex-row gap-1">
+              <Pressable
+                onPress={handleShare}
+                className="p-2 rounded-full active:bg-muted"
+              >
+                <MaterialIcons
+                  name="share"
+                  size={20}
+                  color={colors.textMuted.rgb}
+                />
+              </Pressable>
+              <Pressable
+                onPress={handleDelete}
+                className="p-2 rounded-full active:bg-status-error/10"
+              >
+                {!isPending ? (
+                  <MaterialIcons
+                    name="delete-outline"
+                    size={20}
+                    color={colors.error.rgb}
+                  />
+                ) : (
+                  <Octicons
+                    className="animate-spin"
+                    name="x-circle"
+                    size={20}
+                    color={colors.error.rgb}
+                  />
+                )}
+              </Pressable>
+            </View>
+          </>
+        ) : (
+          <>
+            <View className="bg-muted px-3 py-1.5 rounded-md">
+              <Text className="text-xs font-medium text-text-base">Draft</Text>
+            </View>
+            <Pressable
+              onPress={handleDelete}
+              className="p-2 rounded-full active:bg-status-error/10"
+            >
+              <MaterialIcons
+                name="delete-outline"
+                size={20}
+                color={colors.error.rgb}
+              />
+            </Pressable>
+          </>
+        )}
+      </View>
     </Pressable>
   );
 };
