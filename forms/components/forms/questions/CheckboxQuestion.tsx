@@ -7,30 +7,64 @@ import { Label } from "@/components/common";
 interface CheckboxQuestionProps {
   question: Question;
   control: Control<any>;
+  error: string;
 }
 
 export const CheckboxQuestion = ({
   question,
   control,
+  error,
 }: CheckboxQuestionProps) => {
   if (question.type !== "CheckBox") return null;
 
   return (
     <View className="mb-4">
-      <Label>{question.title}</Label>
-      {question.checkboxConfig?.options.map((option, index) => (
-        <Controller
-          key={index}
-          control={control}
-          name={`responses.${index}.answer.${option}`} // Dynamic path
-          render={({ field: { onChange, value } }) => (
-            <View className="flex-row items-center gap-2 mt-2">
-              <Checkbox value={value} onValueChange={onChange} />
-              <Text>{option}</Text>
-            </View>
-          )}
-        />
-      ))}
+      <Label required={question.isRequired}>{question.title}</Label>
+
+      <Controller
+        control={control}
+        name={`responses.${question.id}.answer`}
+        defaultValue={{}} // Default value for checkboxes as an object
+        rules={{
+          required: {
+            value: question.isRequired,
+            message: "Please select at least one option",
+          },
+          validate: (value: Record<string, boolean>) => {
+            // Custom validation: at least one checkbox should be checked
+            if (!question.isRequired) return true;
+            return (
+              Object.values(value || {}).some((v) => v) ||
+              "Please select at least one option"
+            );
+          },
+        }}
+        render={({
+          field: { onChange, value = {} },
+          fieldState: { error },
+        }) => (
+          <>
+            {question.checkboxConfig?.options.map((option, index) => (
+              <View key={index} className="flex-row items-center gap-2 mt-2">
+                <Checkbox
+                  value={value[option] || false}
+                  onValueChange={(checked) => {
+                    // Update value for this checkbox
+                    onChange({
+                      ...value,
+                      [option]: checked,
+                    });
+                  }}
+                />
+                <Text className="text-base text-text-base">{option}</Text>
+              </View>
+            ))}
+            {error && (
+              <Text className="mt-1 text-sm text-error">{error.message}</Text>
+            )}
+          </>
+        )}
+      />
     </View>
   );
 };

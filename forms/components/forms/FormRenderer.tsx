@@ -10,7 +10,35 @@ import { TextQuestion, CheckboxQuestion, GridQuestion } from "./questions";
 import { Question } from "@/types/question.type";
 import { CreateFormSubmissionData } from "@/types/form-submission.type";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { formSchema } from "@/schemas/form.schema";
 import { formSubmissionSchema } from "@/schemas/form-submission.schema";
+import { useEffect } from "react";
+
+// Custom schema for form validation
+const formValidationSchema = z.object({
+  responses: z.record(
+    z.string(),
+    z.object({
+      answer: z.union([
+        // Text answer
+        z.string(),
+        // Checkbox answer (object with option keys and boolean values)
+        z.record(
+          z.string({ required_error: "Please Select checkbox" }),
+          z.boolean()
+        ),
+        // Grid answer (object with row indices and selected column values)
+        z.record(
+          z.string({ required_error: "Please Select checkbox" }),
+          z.string()
+        ),
+      ]),
+    })
+  ),
+});
+
+type FormValidationData = z.infer<typeof formValidationSchema>;
 
 interface FormRendererProps {
   form: Form;
@@ -25,16 +53,75 @@ export const FormRenderer = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateFormSubmissionData>({
+  } = useForm<FormValidationData>({
+    resolver: zodResolver(formValidationSchema),
     defaultValues: {
-      form: form.id,
+      responses: form.questions.reduce(
+        (acc, question) => ({
+          ...acc,
+          [question.id]: { answer: undefined },
+        }),
+        {}
+      ),
     },
   });
-  const { mutateAsync: submitForm, isPending } = useSubmitForm();
-  console.log(errors);
 
-  const onSubmit = async (data: any) => {
-    console.log({ data });
+  const {
+    mutate: submitForm,
+    isPending,
+    isError,
+    isSuccess,
+    error,
+  } = useSubmitForm();
+
+  const transformToSubmissionData = (data: FormValidationData) => {
+    // ):  |  => {
+    return form.questions.map((question) => {
+      const selectedAnswer = data.responses[question.id];
+      if (question.type === "Text") {
+        return {
+          question: question.id,
+          answer: selectedAnswer,
+        };
+      } else if (question.type === "CheckBox") {
+        return {
+          question: question.id,
+          answer: question.checkboxConfig.options.filter(
+            (option) => selectedAnswer.answer[option]
+          ),
+        };
+      } else if (question.type === "Grid") {
+        const res: Record<string, string | number> = {};
+        question.gridConfig.rows.forEach((row, index) => {
+          // [row]: selectedAnswer.answer[index],
+          res[row] = selectedAnswer.answer[index];
+        });
+        return {
+          question: question.id,
+          answer: res,
+        };
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      showAlert({
+        type: "success",
+        title: "Form Submitted",
+        description: "Thank you for your response",
+      });
+      router.back();
+    } else if (!isPending && isError) {
+      showAlert({
+        type: "error",
+        title: "Submission Failed",
+        description: error?.errors[0].message,
+      });
+    }
+  }, [isError, isSuccess, isPending, error]);
+
+  const onSubmit = async (data: FormValidationData) => {
     if (isPreview) {
       showAlert({
         type: "info",
@@ -43,37 +130,52 @@ export const FormRenderer = ({
       });
       return;
     }
-
-    try {
-      // await submitForm({
-      //   form: form.id as string,
-      //   responses: formattedResponses,
-      // });
-      showAlert({
-        type: "success",
-        title: "Form Submitted",
-        description: "Thank you for your response",
-      });
-      router.back();
-    } catch (error) {
+    const transformedData = transformToSubmissionData(data);
+    const parse = formSubmissionSchema.safeParse({
+      form: form.id,
+      responses: transformedData,
+    });
+    if (parse.success) {
+      submitForm(parse.data);
+    } else {
       showAlert({
         type: "error",
-        title: "Submission Failed",
-        description: "Please try again",
+        title: "Validation Error",
+        description: parse.error.message,
       });
     }
   };
 
   const renderQuestion = (question: Question, index: number) => {
+    const error = errors?.responses?.[question.id]?.answer;
+    const errorMessage = error?.message || (error && "This field is required");
+
     switch (question.type) {
       case "Text":
         return (
-          <TextQuestion index={index} question={question} control={control} />
+          <TextQuestion
+            index={index}
+            question={question}
+            control={control}
+            error={errorMessage}
+          />
         );
       case "CheckBox":
-        return <CheckboxQuestion question={question} control={control} />;
+        return (
+          <CheckboxQuestion
+            question={question}
+            control={control}
+            error={errorMessage as string}
+          />
+        );
       case "Grid":
-        return <GridQuestion question={question} control={control} />;
+        return (
+          <GridQuestion
+            question={question}
+            control={control}
+            error={errorMessage}
+          />
+        );
     }
   };
 
@@ -94,7 +196,7 @@ export const FormRenderer = ({
           )}
         </View>
 
-        <View className="gap-1 ">
+        <View className="gap-1">
           {form.questions.map((question, index) => (
             <View
               key={index}
