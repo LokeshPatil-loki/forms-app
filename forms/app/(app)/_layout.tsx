@@ -13,6 +13,7 @@ export default function AppLayout() {
       <Stack.Screen name="index" />
       <Stack.Screen name="forms/all" />
       <Stack.Screen name="forms/[formId]" />
+      <Stack.Screen name="forms/[formId]/response" />
       <Stack.Screen name="forms/[formId]/question/add" />
     </Stack>
   );
