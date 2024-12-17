@@ -25,7 +25,7 @@ export const useSubmitForm = () => {
 };
 
 export const useGetResponses = (formId: string) => {
-  useQuery<ApiResponse<FormSubmissionResponseList>>({
+  return useQuery<ApiResponse<FormSubmissionResponseList>>({
     queryFn: async () =>
       handleApiError(() => FormSubmissionApi.getSubmissionResponses(formId)),
     queryKey: ["form-submission"],
