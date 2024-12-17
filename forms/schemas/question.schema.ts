@@ -26,8 +26,12 @@ export const textQuestionSchema = questionBaseSchema.extend({
 export const gridQuestionSchema = questionBaseSchema.extend({
   type: z.literal("Grid"),
   gridConfig: z.object({
-    rows: z.array(z.string()).min(1, "Minimum 1 row is required"),
-    columns: z.array(z.string()).min(1, "Minimum 1 column is required"),
+    rows: z
+      .array(z.string().min(1, "Row must not be empty"))
+      .min(1, "Minimum 1 row is required"),
+    columns: z
+      .array(z.string().min(1, "Column must not be empty"))
+      .min(1, "Minimum 1 column is required"),
   }),
 });
 

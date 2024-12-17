@@ -2,6 +2,7 @@ import {
   checkboxQuestionSchema,
   questionSchema,
   textQuestionSchema,
+  gridQuestionSchema,
 } from "@/schemas/question.schema";
 import { z } from "zod";
 
@@ -52,3 +53,6 @@ export type CreateCheckboxQuestionData = z.infer<typeof checkboxQuestionSchema>;
 export type UpdateCheckboxQuestionData = Partial<CreateCheckboxQuestionData>;
 
 export type UpdateQuestionData = Partial<CreateQuestionData>;
+
+export type CreateGridQuestionData = z.infer<typeof gridQuestionSchema>;
+export type UpdateGridQuestionData = Partial<CreateGridQuestionData>;

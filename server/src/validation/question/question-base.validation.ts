@@ -33,22 +33,40 @@ export const QuestionBaseSchema = z.object({
     gridConfig: z
       .object({
         rows: z
-          .array(z.string(), {
+          .array(z.string().min(1, "Rows must not contain empty strings"), {
             invalid_type_error: "Rows must be an array of strings",
+          })
+          .refine((rows) => rows.length > 0, {
+            message: "Rows cannot be empty",
           })
           .optional(),
         columns: z
-          .array(z.string(), {
+          .array(z.string().min(1, "Columns must not contain empty strings"), {
             invalid_type_error: "Columns must be an array of strings",
+          })
+          .refine((columns) => columns.length > 0, {
+            message: "Columns cannot be empty",
           })
           .optional(),
       })
+      .refine(
+        (data) =>
+          (data.rows && data.rows.length > 0) ||
+          (data.columns && data.columns.length > 0),
+        {
+          message:
+            "At least one of rows or columns must be provided and not empty",
+        }
+      )
       .optional(),
     checkboxConfig: z
       .object({
         options: z
-          .array(z.string(), {
+          .array(z.string().min(1, "option cannot contain an empty string"), {
             invalid_type_error: "Options must be an array of strings",
+          })
+          .refine((options) => options.length > 0, {
+            message: "Options cannot be empty",
           })
           .optional(),
         selectMultiple: z

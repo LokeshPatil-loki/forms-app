@@ -14,6 +14,7 @@ import { colors } from "@/utils/colors";
 
 export default function HomePage() {
   const { user } = useAuthStore();
+  const logout = useLogout();
   const { data: formsData, isLoading, error } = useGetMyForms();
 
   const handleViewAll = () => {
@@ -36,10 +37,10 @@ export default function HomePage() {
           </View>
           <TouchableOpacity
             className="items-center justify-center w-10 h-10 rounded-full bg-fill-muted"
-            // onPress={() => router.push("/profile")}
+            onPress={() => logout()}
           >
             <MaterialIcons
-              name="person"
+              name="logout"
               size={24}
               color="var(--color-text-muted)"
             />
