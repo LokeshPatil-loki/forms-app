@@ -23,7 +23,10 @@
             "host": "form-rosy-one.vercel.app",
             "pathPrefix": "/forms/"
           },
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ],
       "adaptiveIcon": {
@@ -56,6 +59,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": "https://form-rosy-one.vercel.app"
+      },
+      "eas": {
+        "projectId": "1ae6bfd7-eb02-4cd3-9f9c-334b181f2737"
+      }
     }
   }
 }
