@@ -27,12 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.get("/forms/:formId", (req, res) => {
-  res.json({
-    links: {
-      ios: `https://form-rosy-one.vercel.app/forms/${req.params.formId}`,
-      android: `https://form-rosy-one.vercel.app/forms/${req.params.formId}`,
-    },
-  });
+  res.redirect(`forms://forms/${req.params.formId}/response`);
 });
 
 app.use("/api/auth", userRouter);
