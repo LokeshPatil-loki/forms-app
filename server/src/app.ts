@@ -26,6 +26,15 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello there!");
 });
 
+app.get("/forms/:formId", (req, res) => {
+  res.json({
+    links: {
+      ios: `https://form-rosy-one.vercel.app/forms/${req.params.formId}`,
+      android: `https://form-rosy-one.vercel.app/forms/${req.params.formId}`,
+    },
+  });
+});
+
 app.use("/api/auth", userRouter);
 app.use("/api/form", formsRouter);
 app.use("/api/question", questionRouter);

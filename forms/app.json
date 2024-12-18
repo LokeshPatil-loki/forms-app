@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "forms",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -14,6 +14,17 @@
     },
     "android": {
       "package": "com.lokilokesh.forms",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https",
+            "host": "form-rosy-one.vercel.app",
+            "pathPrefix": "/forms/"
+          },
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -26,6 +37,9 @@
     },
     "plugins": [
       "expo-router",
+      {
+        "origin": "https://form-rosy-one.vercel.app"
+      },
       [
         "expo-splash-screen",
         {

@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { router, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -48,6 +48,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/api/query-client";
 import { View } from "react-native";
 import { createNotifications } from "react-native-notificated";
+import * as Linking from "expo-linking";
+
 import * as SecureStorage from "expo-secure-store";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -87,6 +89,37 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
+
+  useEffect(() => {
+    const handleDeepLink = (event: { url: string }) => {
+      const { hostname, pathname } = new URL(event.url);
+
+      // Check if the link is from your domain
+      if (hostname === "form-rosy-one.vercel.app") {
+        const match = pathname.match(/^\/forms\/([^/]+)$/);
+        if (match) {
+          const formId = match[1];
+          // Navigate to the form response page
+          router.push(`/forms/${formId}/response`);
+        }
+      }
+    };
+
+    // Add event listener
+    const subscription = Linking.addEventListener("url", handleDeepLink);
+
+    // Check initial link if app was opened from a link
+    Linking.getInitialURL().then((url) => {
+      if (url) {
+        handleDeepLink({ url });
+      }
+    });
+
+    // Cleanup
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   if (!fontsLoaded) {
     return null;
