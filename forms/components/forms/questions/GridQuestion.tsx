@@ -3,6 +3,7 @@ import { Controller, Control } from "react-hook-form";
 import { Text, View } from "react-native";
 import { Checkbox } from "expo-checkbox";
 import { Label } from "@/components/common";
+import { colors } from "@/utils/colors";
 
 interface GridQuestionProps {
   question: Question;
@@ -26,7 +27,7 @@ export const GridQuestion = ({
           {question.gridConfig?.columns.map((col, colIndex) => (
             <Text
               key={colIndex}
-              className="flex-1 text-sm text-center text-text-base"
+              className="flex-1 text-sm font-bold text-center text-text-base"
             >
               {col}
             </Text>
@@ -54,11 +55,18 @@ export const GridQuestion = ({
             <>
               {question.gridConfig?.rows.map((row, rowIndex) => (
                 <View key={rowIndex} className="flex-row items-center mt-4">
-                  <Text className="w-32 text-sm text-text-base">{row}</Text>
+                  <Text className="w-32 text-sm font-bold text-text-base">
+                    {row}
+                  </Text>
                   <View className="flex-row flex-1">
                     {question.gridConfig?.columns.map((col, colIndex) => (
                       <View key={colIndex} className="items-center flex-1">
                         <Checkbox
+                          color={
+                            value[rowIndex] === col
+                              ? colors.accent.rgb
+                              : colors.textMuted.rgb
+                          }
                           value={value[rowIndex] === col}
                           onValueChange={() => {
                             onChange({

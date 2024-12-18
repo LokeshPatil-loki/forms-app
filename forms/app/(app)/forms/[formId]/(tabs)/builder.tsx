@@ -132,6 +132,7 @@ export default function FormBuilderScreen() {
                   onChangeText={onChange}
                   label="Description"
                   error={errors.description?.message}
+                  multiline
                   placeholder="Enter form title"
                 />
               );

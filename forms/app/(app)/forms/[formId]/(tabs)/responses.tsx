@@ -13,7 +13,7 @@ export default function FormResponsesScreen() {
     isLoading,
     error,
   } = useGetResponses(formId as string);
-  console.log(responses?.data.responses);
+
   const [selectedResponse, setSelectedResponse] = useState(null);
 
   const groupedResponses = useMemo(() => {

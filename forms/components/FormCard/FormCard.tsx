@@ -45,8 +45,8 @@ export const FormCard = ({ form, onPress }: FormCardProps) => {
   };
 
   const handleShare = async () => {
-    if (form.shareableLink) {
-      await Clipboard.setStringAsync(form.shareableLink);
+    if (form.id) {
+      await Clipboard.setStringAsync(`forms://forms/${form.id}/response`);
       showAlert({
         type: "success",
         title: "Link Copied!",

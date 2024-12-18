@@ -3,6 +3,7 @@ import { Controller, Control } from "react-hook-form";
 import { Text, View } from "react-native";
 import { Checkbox } from "expo-checkbox";
 import { Label } from "@/components/common";
+import { colors } from "@/utils/colors";
 
 interface CheckboxQuestionProps {
   question: Question;
@@ -48,6 +49,9 @@ export const CheckboxQuestion = ({
               <View key={index} className="flex-row items-center gap-2 mt-2">
                 <Checkbox
                   value={value[option] || false}
+                  color={
+                    value[option] ? colors.accent.rgb : colors.textMuted.rgb
+                  }
                   onValueChange={(checked) => {
                     // Update value for this checkbox
                     onChange({

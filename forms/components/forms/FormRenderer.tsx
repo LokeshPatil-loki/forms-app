@@ -208,7 +208,7 @@ export const FormRenderer = ({
         </View>
 
         <Button
-          className="mt-6"
+          className="my-6"
           onPress={handleSubmit(onSubmit)}
           isLoading={isPending}
         >

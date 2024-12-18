@@ -5,7 +5,7 @@ import { QuestionTypeButton } from "@/components/QuestionBuilder/QuestionTypeBut
 import { QuestionType } from "@/types/question.type";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 const AddQuestionScreen = () => {
   const { formId } = useLocalSearchParams();
@@ -34,34 +34,34 @@ const AddQuestionScreen = () => {
           Add a Question
         </Text>
       </View>
-      {/* <CheckboxForm /> */}
-      {/* <GridQuestionForm /> */}
-      {!selectedType ? (
-        <View>
-          <Text className="mb-2 text-xl font-bold text-text-base">
-            Select a Question Type
-          </Text>
-          <View className="flex justify-center gap-3 mt-2">
-            <QuestionTypeButton
-              type="Text"
-              icon="text"
-              onPress={() => setSelectedType("Text")}
-            />
-            <QuestionTypeButton
-              type="CheckBox"
-              icon="checkbox-marked-outline"
-              onPress={() => setSelectedType("CheckBox")}
-            />
-            <QuestionTypeButton
-              type="Grid"
-              icon="grid"
-              onPress={() => setSelectedType("Grid")}
-            />
+      <ScrollView>
+        {!selectedType ? (
+          <View>
+            <Text className="mb-2 text-xl font-bold text-text-base">
+              Select a Question Type
+            </Text>
+            <View className="flex justify-center gap-3 mt-2">
+              <QuestionTypeButton
+                type="Text"
+                icon="text"
+                onPress={() => setSelectedType("Text")}
+              />
+              <QuestionTypeButton
+                type="CheckBox"
+                icon="checkbox-marked-outline"
+                onPress={() => setSelectedType("CheckBox")}
+              />
+              <QuestionTypeButton
+                type="Grid"
+                icon="grid"
+                onPress={() => setSelectedType("Grid")}
+              />
+            </View>
           </View>
-        </View>
-      ) : (
-        <SelectedForm />
-      )}
+        ) : (
+          <SelectedForm />
+        )}
+      </ScrollView>
     </ScreenView>
   );
 };

@@ -62,6 +62,7 @@ export const TextInput = ({
           ${inputWrapperClassName}`}
       >
         <_TextInput
+          multiline
           className={`flex-1 text-text-base placeholder:text-text-muted text-lg font-normal  font-body ${inputClassName}`}
           secureTextEntry={type === "password" && !showPassword}
           {...textInputProps}
