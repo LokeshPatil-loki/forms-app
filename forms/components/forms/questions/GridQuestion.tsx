@@ -21,6 +21,11 @@ export const GridQuestion = ({
   return (
     <View className="mb-4">
       <Label required={question.isRequired}>{question.title}</Label>
+      {question.description && (
+        <Text className="font-mono text-sm text-text-base">
+          {question.description}
+        </Text>
+      )}
       {error && <Text className="mt-1 text-sm text-error">{error}</Text>}
       <View className="mt-4">
         <View className="flex-row ml-32">

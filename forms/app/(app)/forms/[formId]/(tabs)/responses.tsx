@@ -85,7 +85,7 @@ export default function FormResponsesScreen() {
                   console.log("question", question);
                   return (
                     <View key={question._id} className="mt-2">
-                      <Text className="font-medium text-red-700">
+                      <Text className="font-medium font-semibold text-button-accent-hover">
                         {question.title}
                       </Text>
                       <Text className="text-base">

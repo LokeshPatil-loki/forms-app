@@ -54,7 +54,7 @@ export const FormRenderer = ({
     handleSubmit,
     formState: { errors },
   } = useForm<FormValidationData>({
-    resolver: zodResolver(formValidationSchema),
+    // resolver: zodResolver(formValidationSchema),
     defaultValues: {
       responses: form.questions.reduce(
         (acc, question) => ({
@@ -111,7 +111,11 @@ export const FormRenderer = ({
         title: "Form Submitted",
         description: "Thank you for your response",
       });
-      router.back();
+      if (router.canGoBack()) {
+        router.back();
+      } else {
+        router.replace("/");
+      }
     } else if (!isPending && isError) {
       showAlert({
         type: "error",

@@ -21,6 +21,7 @@ export default function FormResponseScreen() {
   return (
     <ScreenView>
       <FormRenderer form={currentForm.data.form} isPreview={false} />
+      <></>
     </ScreenView>
   );
 }

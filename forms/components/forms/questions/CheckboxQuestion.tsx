@@ -17,11 +17,15 @@ export const CheckboxQuestion = ({
   error,
 }: CheckboxQuestionProps) => {
   if (question.type !== "CheckBox") return null;
-
+  console.log(`responses.${question.id}.answer`);
   return (
     <View className="mb-4">
       <Label required={question.isRequired}>{question.title}</Label>
-
+      {question.description && (
+        <Text className="font-mono text-sm text-text-base">
+          {question.description}
+        </Text>
+      )}
       <Controller
         control={control}
         name={`responses.${question.id}.answer`}
