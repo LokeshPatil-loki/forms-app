@@ -1,6 +1,10 @@
 import { Text, TextProps } from "react-native";
 
-export const Label = ({ children, className, ...rest }: TextProps) => (
+interface LabelProps extends TextProps {
+  required: boolean;
+}
+
+export const Label = ({ children, className, ...rest }: LabelProps) => (
   <Text className={`text-lg font-medium text-text-base ${className}`} {...rest}>
     {children}
   </Text>

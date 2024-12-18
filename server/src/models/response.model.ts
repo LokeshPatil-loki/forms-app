@@ -15,6 +15,7 @@ export const ResponseSchema = new mongoose.Schema({
     {
       question: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "Question",
         required: true,
       },
       answer: {

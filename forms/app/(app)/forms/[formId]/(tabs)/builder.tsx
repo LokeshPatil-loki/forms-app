@@ -90,8 +90,18 @@ export default function FormBuilderScreen() {
         <Button onPress={handlePublishForm} variant="ghost" size="sm">
           Publish
         </Button>
+        {/* <Button
+          onPress={() => router.push(`/forms/${formId as string}/response`)}
+          variant="ghost"
+          size="sm"
+        >
+          Respond
+        </Button> */}
       </View>
-      <ScrollView>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex gap-5 mt-4 rounded-lg">
           <Controller
             control={control}

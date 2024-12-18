@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
 export const FormCard = ({ form, onPress }: FormCardProps) => {
   const { setCurrentForm } = useFormStore();
   const { mutate: deleteForm, isPending } = useDeleteForm();
-  console.log(isPending);
 
   const handlePress = () => {
     if (onPress) {

@@ -7,7 +7,12 @@ import {
   View as ViewBase,
 } from "react-native";
 
-export const ScreenView = ({ children, className = "", ...props }) => {
+export const ScreenView = ({
+  children,
+  padding = "",
+  className = "",
+  ...props
+}) => {
   return (
     <SafeAreaView
       automaticallyAdjustKeyboardInsets={true}

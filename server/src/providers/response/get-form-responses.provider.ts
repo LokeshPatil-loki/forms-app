@@ -15,8 +15,8 @@ export const getFormResponsesProvider = async (
   if (!form.createdBy?.equals(loggedInUser._id)) {
     throw new ForbiddenError(ErrorMessages.FORM_PERMISSION_DENIED);
   }
-  const responses = await ResponseModel.find({ form: form._id }).populate(
-    "respondent"
-  );
+  const responses = await ResponseModel.find({ form: form._id })
+    .populate("respondent")
+    .populate("responses.question");
   return responses;
 };

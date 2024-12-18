@@ -21,6 +21,13 @@ interface QuestionTypeListItemProps {
   question: Question;
 }
 
+function trimString(str: string) {
+  if (str?.length > 35) {
+    return str.slice(0, 32) + "...";
+  }
+  return str;
+}
+
 export const QuestionTypeListItem = ({
   question,
 }: QuestionTypeListItemProps) => {
@@ -35,7 +42,9 @@ export const QuestionTypeListItem = ({
           color={colors.textBase.rgb}
         />
         <View>
-          <Text className="text-lg text-text-base">{question.title}</Text>
+          <Text className="text-lg text-text-base max-w-80">
+            {trimString(question.title)}
+          </Text>
           <Text className="text-sm text-text-muted">
             {question.type} Question
           </Text>

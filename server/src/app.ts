@@ -26,6 +26,10 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello there!");
 });
 
+app.get("/forms/:formId", (req, res) => {
+  res.redirect(`forms://forms/${req.params.formId}/response`);
+});
+
 app.use("/api/auth", userRouter);
 app.use("/api/form", formsRouter);
 app.use("/api/question", questionRouter);

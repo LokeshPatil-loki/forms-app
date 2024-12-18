@@ -18,7 +18,7 @@ export const FormSubmissionApi = {
     return response.data;
   },
   getSubmissionResponses: async (formId: string) => {
-    const response = await apiClient.post<
+    const response = await apiClient.get<
       ApiResponse<FormSubmissionResponseList>
     >(`/response/form/${formId}`);
     return response.data;
