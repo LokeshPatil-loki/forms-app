@@ -186,7 +186,7 @@ export const FormRenderer = ({
       className="flex-1"
     >
       <View className="pt-4">
-        <Image src={form.headerImageUrl} className="w-full h-20" />
+        <Image src={form.headerImageUrl} className="w-full h-36" />
         <View className="flex bg-white p-4 my-4 border-b-[8px] rounded-lg shadow-lg border-accent-hover ">
           <Text className="text-2xl font-bold text-accent-hover">
             {form.title}

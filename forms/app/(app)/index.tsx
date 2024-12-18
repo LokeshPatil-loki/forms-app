@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import { Button, FormCard, Loading, ScreenView } from "@/components/common";
 import { useLogout } from "@/hooks/use-auth";
 import { useCreateForm, useGetMyForms } from "@/hooks/use-form";
@@ -142,10 +142,17 @@ export default function HomePage() {
             </Button>
           </View>
         ) : (
-          <View className="mt-2">
-            {formsData?.data.forms.map((form) => (
+          <View className="mt-2 ">
+            {/* {formsData?.data.forms.map((form) => (
               <FormCard key={form.id} form={form} />
-            ))}
+            ))} */}
+            <FlatList
+              data={formsData?.data.forms}
+              keyExtractor={(form) => form.id}
+              renderItem={({ item, index }) => (
+                <FormCard key={item.id} form={item} />
+              )}
+            />
           </View>
         )}
       </View>

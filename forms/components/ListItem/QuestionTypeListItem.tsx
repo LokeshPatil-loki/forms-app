@@ -22,7 +22,7 @@ interface QuestionTypeListItemProps {
 }
 
 function trimString(str: string) {
-  if (str.length > 35) {
+  if (str?.length > 35) {
     return str.slice(0, 32) + "...";
   }
   return str;

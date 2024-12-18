@@ -28,8 +28,8 @@ export const ImagePicker = ({ onImageUpdload, url }: ImagePickerProps) => {
       }
       const response = await uploadToCloudinary(result.assets[0].uri);
       if (response) {
-        setImageUrl(response?.url);
-        onImageUpdload(response?.url);
+        setImageUrl(response?.secure_url);
+        onImageUpdload(response?.secure_url);
       }
     } catch (error) {
       console.error(error);
